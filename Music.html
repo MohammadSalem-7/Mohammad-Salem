@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Music</title>
+    <style>
+        body {
+            background: #0d0d0d;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            overflow: hidden;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        h1 {
+            font-size: 3rem;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px #ff00ff;
+        }
+        .player {
+            background: rgba(255, 0, 255, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px #ff00ff;
+        }
+        audio {
+            width: 100%;
+            margin-top: 15px;
+        }
+        .neon-effect {
+            animation: glow 1.5s infinite alternate;
+        }
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+            }
+            to {
+                text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="neon-effect">NAGASA Music</h1>
+        <div class="player">
+            <p>استمتع بالموسيقى!</p>
+            <audio controls>
+                <source src="https://e.top4top.io/m_3351gkmvu1.mp3" type="audio/mpeg">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+            <br>
+             <audio controls>
+                <source src="https://l.top4top.io/m_3351ckrxi1.mp3" type="audio/mpeg">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+        </div>
+    </div>
+</body>
+</html>
