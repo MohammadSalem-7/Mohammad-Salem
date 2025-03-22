@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medo Music</title>
     <style>
-    body {
-            background: url('https://images.unsplash.com/photo-1511379938547-c1f69419868d') no-repeat center center fixed;
-            background-size: cover;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            overflow: hidden;
-        }
+       body {
+         background: url('https://wallpapercave.com/wp/wp7418490.jpg') no-repeat center center fixed;
+         background-size: cover;
+          color: white;
+          font-family: Arial, sans-serif;
+           text-align: center;
+         overflow: hidden;
+          }
+
         .container {
             display: flex;
             flex-direction: column;
@@ -30,10 +31,19 @@
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0 0 20px #ff00ff;
+            width: 80%;
+            max-width: 500px;
+        }
+        .song {
+            margin-bottom: 15px;
+        }
+        .song-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
         }
         audio {
             width: 100%;
-            margin-top: 15px;
         }
         .neon-effect {
             animation: glow 1.5s infinite alternate;
@@ -52,21 +62,34 @@
     <div class="container">
         <h1 class="neon-effect">Mohammad Salem Music</h1>
         <div class="player">
-            <p>استمتع بالموسيقى!</p>
-            <audio controls>
-                <source src="https://e.top4top.io/m_3351gkmvu1.mp3" type="audio/mpeg">
-                متصفحك لا يدعم تشغيل الصوت.
-            </audio>
-            <br>
-             <audio controls>
-                <source src="https://l.top4top.io/m_3351ckrxi1.mp3" type="audio/mpeg">
-                متصفحك لا يدعم تشغيل الصوت.
-            </audio>
-                <br>
-             <audio controls>
-                <source src="https://b.top4top.io/m_3352djwq21.mp3" type="audio/mpeg">
-                متصفحك لا يدعم تشغيل الصوت.
-            </audio>
+            <div class="song">
+                <p class="song-name">أغنية 1 - بتمناه انساك</p>
+                <audio controls>
+                    <source src="https://e.top4top.io/m_3351gkmvu1.mp3" type="audio/mpeg">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+            </div>
+            <div class="song">
+                <p class="song-name">أغنية 2 - كلو لها</p>
+                <audio controls>
+                    <source src="https://l.top4top.io/m_3351ckrxi1.mp3" type="audio/mpeg">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+            </div>
+            <div class="song">
+                <p class="song-name">أغنية 3 - Love story</p>
+                <audio controls>
+                    <source src="https://b.top4top.io/m_3352djwq21.mp3" type="audio/mpeg">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+            </div>
+            <div class="song">
+                <p class="song-name">أغنية 4 - امشي</p>
+                <audio controls>
+                    <source src="https://e.top4top.io/m_3368ag2rk1.mp3" type="audio/mpeg">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+            </div>
         </div>
     </div>
 </body>
