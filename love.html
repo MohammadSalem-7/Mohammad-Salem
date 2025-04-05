@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>❤️M اسمك في القلب ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #ff4d4d;
+            --secondary-color: #ffcccb;
+            --background-color: #2c2c2c;
+            --text-color: white;
+            --romantic-font: 'Great Vibes', cursive;
+        }
+
+        body {
+            text-align: center;
+            font-family: var(--romantic-font);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .input-container {
+            margin-bottom: 20px;
+        }
+
+        input, button {
+            padding: 10px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            margin: 5px;
+            font-family: var(--romantic-font);
+        }
+
+        input {
+            width: 200px;
+            background-color: var(--secondary-color);
+            color: var(--background-color);
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ff1a1a;
+        }
+
+        .name-container {
+            display: none;
+            position: relative;
+            font-size: 40px;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .heart-small {
+            position: absolute;
+            color: var(--primary-color);
+            font-size: 30px;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        .heart1 { top: -20px; left: -20px; }
+        .heart2 { top: -20px; right: -20px; }
+        .heart3 { bottom: -20px; left: -20px; }
+        .heart4 { bottom: -20px; right: -20px; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .heart-effect {
+            position: absolute;
+            color: var(--primary-color);
+            font-size: 30px;
+            animation: floating-hearts 4s linear infinite;
+        }
+
+        .warning {
+            color: var(--primary-color);
+            display: none;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .romantic-text {
+            font-size: 24px;
+            margin-top: 20px;
+            color: var(--secondary-color);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="input-container" id="inputContainer">
+        <h1>❤️ اكتب اسم الشخص اللي بتحبه ❤️</h1>
+        <input type="text" id="nameInput" placeholder="اكتب الاسم هنا...">
+        <button onclick="showName()">تأكيد</button>
+        <p id="warning" class="warning"></p>
+    </div>
+
+    <div class="name-container" id="nameContainer">
+        <span id="nameDisplay"></span>
+        <span class="heart-small heart1">❤️</span>
+        <span class="heart-small heart2">❤️</span>
+        <span class="heart-small heart3">❤️</span>
+        <span class="heart-small heart4">❤️</span>
+        <div class="romantic-text" id="romanticText"></div>
+    </div>
+
+    <!-- إضافة مشغل الصوت -->
+    <audio id="loveSong">
+        <source src="https://b.top4top.io/m_33521tuzy1.mp3" type="audio/mp3">
+        متصفحك لا يدعم تشغيل الصوت.
+    </audio>
+
+    <script>
+        const romanticMessages = [
+            "أنتِ كل شيء جميل في حياتي ❤️",
+            "حبك هو أجمل شعور في الوجود 🌹",
+            "أنتِ القمر الذي يضيء ظلامي 🌙",
+            "معكِ، كل شيء ممكن 💫",
+            "أنتِ الحلم الذي لا أريد أن أستيقظ منه 🌸",
+        ];
+
+        function showName() {
+            let name = document.getElementById("nameInput").value.trim();
+            let warning = document.getElementById("warning");
+
+            if (name === "") {
+                warning.textContent = "⚠️ من فضلك أدخل الاسم!";
+                warning.style.display = "block";
+                return;
+            }
+
+            warning.style.display = "none";
+            document.getElementById("nameDisplay").textContent = name;
+            document.getElementById("inputContainer").style.display = "none";
+            document.getElementById("nameContainer").style.display = "block";
+            generateHearts();
+            showRomanticMessage();
+            playSong(); // تشغيل الأغنية
+        }
+
+        function generateHearts() {
+            for (let i = 0; i < 20; i++) {
+                let heart = document.createElement("span");
+                heart.innerHTML = "❤️";
+                heart.classList.add("heart-effect");
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 4000);
+            }
+        }
+
+        function showRomanticMessage() {
+            let romanticText = document.getElementById("romanticText");
+            let randomMessage = romanticMessages[Math.floor(Math.random() * romanticMessages.length)];
+            romanticText.textContent = randomMessage;
+        }
+
+        function playSong() {
+            let audio = document.getElementById("loveSong");
+            audio.play();
+        }
+    </script>
+</body>
+</html>
