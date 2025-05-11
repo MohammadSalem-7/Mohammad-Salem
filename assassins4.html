@@ -1,1 +1,179 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mohammad Salem - مرحبًا</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: url("https://f.top4top.io/p_3418l9up51.jpg") no-repeat
+          center center fixed;
+        background-size: cover;
+        overflow: hidden;
+        font-family: "Cinzel", serif;
+      }
+
+      .container {
+        position: relative;
+        width: 420px;
+        padding: 40px;
+        background: rgba(10, 25, 47, 0.9);
+        border: 2px solid #4b9cd3;
+        border-radius: 10px;
+        box-shadow: 0 0 30px rgba(75, 156, 211, 0.3);
+        text-align: center;
+        animation: fadeIn 1.2s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .title {
+        font-size: 2.8em;
+        color: #e6f0fa;
+        margin-bottom: 25px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        text-shadow: 0 0 15px rgba(75, 156, 211, 0.8);
+        font-weight: 700;
+      }
+
+      .welcome-message {
+        font-size: 1.5em;
+        color: #e6f0fa;
+        margin-bottom: 20px;
+        text-shadow: 0 0 10px rgba(75, 156, 211, 0.5);
+      }
+
+      .btn {
+        width: 100%;
+        padding: 12px;
+        background: #4b9cd3;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        font-size: 1.1em;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .btn:hover {
+        background: #6ab0de;
+        box-shadow: 0 0 15px rgba(75, 156, 211, 0.7);
+      }
+
+      .snow {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .snowflake {
+        position: absolute;
+        background: #e6f0fa;
+        border-radius: 50%;
+        opacity: 0.7;
+        animation: fall linear infinite;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(-10vh);
+        }
+        100% {
+          transform: translateY(100vh);
+        }
+      }
+
+      .glow-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          circle,
+          rgba(75, 156, 211, 0.2),
+          transparent
+        );
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      @media (max-width: 500px) {
+        .container {
+          width: 90%;
+          padding: 25px;
+        }
+
+        .title {
+          font-size: 2.2em;
+        }
+
+        .welcome-message {
+          font-size: 1.2em;
+        }
+      }
+    </style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="snow" id="snow"></div>
+    <div class="container">
+      <div class="glow-overlay"></div>
+      <h1 class="title">Mohammad Salem</h1>
+      <p class="welcome-message">مرحبًا، <span id="username"></span>!</p>
+      <button class="btn" onclick="window.location.href='assassins.html'">
+        تسجيل الخروج
+      </button>
+    </div>
+
+    <script>
+      const username = localStorage.getItem("username") || "مستخدم";
+      document.getElementById("username").textContent = username;
+
+      function createSnowflake() {
+        const snowflake = document.createElement("div");
+        snowflake.classList.add("snowflake");
+        snowflake.style.width = `${Math.random() * 5 + 2}px`;
+        snowflake.style.height = snowflake.style.width;
+        snowflake.style.left = `${Math.random() * 100}vw`;
+        snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`;
+        snowflake.style.opacity = Math.random() * 0.5 + 0.3;
+        document.getElementById("snow").appendChild(snowflake);
+
+        setTimeout(() => {
+          snowflake.remove();
+        }, 10000);
+      }
+
+      setInterval(createSnowflake, 200);
+    </script>
+  </body>
+</html>
 
