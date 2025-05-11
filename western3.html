@@ -1,0 +1,209 @@
+<!-- register.html -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RDR2 - إنشاء حساب جديد</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      @font-face {
+        font-family: "RDR2";
+        src: url("https://fonts.cdnfonts.com/s/20588/RedDeadRevolver.woff")
+          format("woff");
+      }
+      body {
+        background: url("https://assets.onecompiler.app/42ydxf8da/43heaxp53/977202.jpg")
+          no-repeat center center fixed;
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        overflow: hidden;
+        position: relative;
+        direction: rtl;
+      }
+
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: -1;
+      }
+
+      .container {
+        background: rgba(44, 30, 15, 0.9);
+        border: 5px solid #4a2c0b;
+        border-radius: 15px;
+        padding: 40px 30px;
+        width: 400px;
+        text-align: center;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        overflow: hidden;
+      }
+
+      .container h1 {
+        color: #ff7b00;
+        font-size: 36px;
+        font-family: "RDR2", serif;
+        text-shadow: 3px 3px 5px #000;
+        letter-spacing: 4px;
+      }
+
+      .container h2 {
+        color: #fff;
+        font-size: 28px;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        font-family: "RDR2", serif;
+        text-transform: uppercase;
+        letter-spacing: 5px;
+        text-shadow: 2px 2px 4px #000;
+      }
+
+      .input-group {
+        margin-bottom: 25px;
+      }
+
+      .input-group label {
+        color: #fff;
+        font-size: 18px;
+        margin-bottom: 8px;
+        text-align: right;
+        display: block;
+        font-family: "RDR2", serif;
+      }
+
+      .input-group input {
+        width: 100%;
+        padding: 12px;
+        border: 3px solid #4a2c0b;
+        border-radius: 8px;
+        background: #fff8dc;
+        font-size: 16px;
+        color: #3c2005;
+        outline: none;
+        transition: 0.3s;
+        font-family: "Arial", sans-serif;
+      }
+
+      .input-group input:focus {
+        border-color: #ffd700;
+        box-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
+      }
+
+      .btn {
+        width: 100%;
+        padding: 15px;
+        background: #8b0000;
+        border: none;
+        border-radius: 8px;
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-family: "RDR2", serif;
+      }
+
+      .btn:hover {
+        background: #ffd700;
+        color: #3c2005;
+        box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
+      }
+
+      .links {
+        margin-top: 25px;
+      }
+
+      .links a {
+        color: #ffd700;
+        text-decoration: none;
+        font-size: 16px;
+        margin: 0 15px;
+        transition: 0.3s;
+        font-family: "RDR2", serif;
+      }
+
+      .links a:hover {
+        color: #fff;
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Mohammad Salem</h1>
+      <h2>إنشاء حساب جديد</h2>
+      <div class="input-group">
+        <label for="username">اسم المستخدم</label>
+        <input
+          type="text"
+          id="username"
+          placeholder="أدخل اسم المستخدم"
+          required
+        />
+      </div>
+      <div class="input-group">
+        <label for="email">البريد الإلكتروني</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="أدخل البريد الإلكتروني"
+          required
+        />
+      </div>
+      <div class="input-group">
+        <label for="password">كلمة المرور</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="أدخل كلمة المرور"
+          required
+        />
+      </div>
+      <div class="input-group">
+        <label for="confirm-password">تأكيد كلمة المرور</label>
+        <input
+          type="password"
+          id="confirm-password"
+          placeholder="أعد إدخال كلمة المرور"
+          required
+        />
+      </div>
+      <button class="btn" onclick="register()">إنشاء الحساب</button>
+      <div class="links">
+        <a href="index.html">العودة إلى تسجيل الدخول</a>
+      </div>
+    </div>
+    <script>
+      function register() {
+        const username = document.getElementById("username").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
+        const confirmPassword = document
+          .getElementById("confirm-password")
+          .value.trim();
+        if (!username || !email || !password || !confirmPassword) {
+          alert("يرجى ملء جميع الحقول.");
+          return;
+        }
+        if (password !== confirmPassword) {
+          alert("كلمتا المرور غير متطابقتين.");
+          return;
+        }
+        alert("مرحبًا " + username + "! تم إنشاء الحساب بنجاح.");
+        window.location.href = "western.htmll";
+      }
+    </script>
+  </body>
+</html>
