@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معرض صفحات التسجيل</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-image: url('https://c.top4top.io/p_3418smpbd1.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* طبقة شفافية داكنة */
+            z-index: 1;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        h1 {
+            text-align: center;
+            color: #ffffff;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: #1f2937; /* لون داكن للكروت */
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        /* أنيميشن الظهور التدريجي */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* تأخير لكل كارت */
+        .card:nth-child(1) { animation-delay: 0.2s; }
+        .card:nth-child(2) { animation-delay: 0.4s; }
+        .card:nth-child(3) { animation-delay: 0.6s; }
+        .card:nth-child(4) { animation-delay: 0.8s; }
+        .card:nth-child(5) { animation-delay: 1.0s; }
+        .card:nth-child(6) { animation-delay: 1.2s; }
+        .card:nth-child(7) { animation-delay: 1.4s; }
+        /* ألوان نيون RGB لكل كارت */
+        .card:nth-child(1) { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 10px #3b82f6; } /* أزرق */
+        .card:nth-child(1):hover { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 15px #60a5fa; }
+        .card:nth-child(2) { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 10px #ef4444; } /* أحمر */
+        .card:nth-child(2):hover { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 15px #f87171; }
+        .card:nth-child(3) { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 10px #eab308; } /* أصفر */
+        .card:nth-child(3):hover { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 15px #facc15; }
+        .card:nth-child(4) { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 10px #10b981; } /* أخضر */
+        .card:nth-child(4):hover { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 15px #34d399; }
+        .card:nth-child(5) { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 10px #8b5cf6; } /* بنفسجي */
+        .card:nth-child(5):hover { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 15px #a78bfa; }
+        .card:nth-child(6) { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 10px #ec4899; } /* وردي */
+        .card:nth-child(6):hover { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 15px #f472b6; }
+        .card:nth-child(7) { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 10px #06b6d4; } /* سماوي */
+        .card:nth-child(7):hover { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 15px #22d3ee; }
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: #374151;
+        }
+        .card-content {
+            padding: 20px;
+            text-align: center;
+        }
+        .card-content h3 {
+            color: #dbeafe; /* أزرق فاتح للعناوين */
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        .card-content p {
+            color: #9ca3af; /* رمادي فاتح للوصف */
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+        .card-content a {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #1e40af; /* أزرق داكن للأزرار */
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
+        }
+        .card-content a:hover {
+            background: #3b82f6; /* أزرق نيون عند الـ hover */
+        }
+        /* تأثير الضغط على زر الكارت */
+        .card-content a:active {
+            transform: scale(1.1);
+            animation: pulse 0.3s ease;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+        /* ألوان النيون لتأثير الضغط على زر الكارت */
+        .card:nth-child(1) .card-content a:active { animation: pulse 0.3s ease, pulse-blue 0.3s ease; }
+        @keyframes pulse-blue {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+        .card:nth-child(2) .card-content a:active { animation: pulse 0.3s ease, pulse-red 0.3s ease; }
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+        .card:nth-child(3) .card-content a:active { animation: pulse 0.3s ease, pulse-yellow 0.3s ease; }
+        @keyframes pulse-yellow {
+            0% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(234, 179, 8, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0); }
+        }
+        .card:nth-child(4) .card-content a:active { animation: pulse 0.3s ease, pulse-green 0.3s ease; }
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        .card:nth-child(5) .card-content a:active { animation: pulse 0.3s ease, pulse-purple 0.3s ease; }
+        @keyframes pulse-purple {
+            0% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(139, 92, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+        }
+        .card:nth-child(6) .card-content a:active { animation: pulse 0.3s ease, pulse-pink 0.3s ease; }
+        @keyframes pulse-pink {
+            0% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(236, 72, 153, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0); }
+        }
+        .card:nth-child(7) .card-content a:active { animation: pulse 0.3s ease, pulse-cyan 0.3s ease; }
+        @keyframes pulse-cyan {
+            0% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(6, 182, 212, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
+        }
+        /* زر تشغيل الأغنية */
+        .music-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #1f2937;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px #3b82f6, 0 0 20px #3b82f6;
+            z-index: 1000;
+            cursor: pointer;
+            animation: float 3s ease-in-out infinite, neonGlow 4s ease-in-out infinite;
+        }
+        /* أنيميشن الحركة (طفو) */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        /* أنيميشن تغيير ألوان النيون */
+        @keyframes neonGlow {
+            0% { box-shadow: 0 0 10px #3b82f6, 0 0 20px #3b82f6; } /* أزرق */
+            20% { box-shadow: 0 0 10px #ef4444, 0 0 20px #ef4444; } /* أحمر */
+            40% { box-shadow: 0 0 10px #eab308, 0 0 20px #eab308; } /* أصفر */
+            60% { box-shadow: 0 0 10px #10b981, 0 0 20px #10b981; } /* أخضر */
+            80% { box-shadow: 0 0 10px #8b5cf6, 0 0 20px #8b5cf6; } /* بنفسجي */
+            100% { box-shadow: 0 0 10px #3b82f6, 0 0 20px #3b82f6; } /* أزرق */
+        }
+        .music-button:active {
+            transform: scale(1.1);
+            animation: pulse 0.3s ease, float 3s ease-in-out infinite;
+        }
+        .music-button i {
+            font-size: 24px;
+            color: #ffffff;
+        }
+        /* أيقونة التشغيل/الإيقاف */
+        .music-button.play::before {
+            content: '\25B6'; /* أيقونة Play */
+        }
+        .music-button.pause::before {
+            content: '\275A\275A'; /* أيقونة Pause */
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            .card {
+                margin: 0 10px;
+            }
+            .music-button {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+            .music-button i {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>معرض صفحات التسجيل</h1>
+        <div class="gallery">
+            <div class="card">
+                <img src="https://e.top4top.io/p_3418auxb71.png" alt="تصميم عادي">
+                <div class="card-content">
+                    <h3>تصميم عادي</h3>
+                    <p>واجهة تسجيل كلاسيكية بتصميم قياسي وسهل الاستخدام.</p>
+                    <a href="normal.html">عرض الصفحة</a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://f.top4top.io/p_34180mf572.png" alt="تصميم بسيط">
+                <div class="card-content">
+                    <h3>تصميم بسيط</h3>
+                    <p>تصميم أنيق وبسيط يركز على الوضوح وسهولة التنقل.</p>
+                    <a href="simple.html">عرض الصفحة</a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://g.top4top.io/p_34186s21z3.png" alt="تصميم فرعوني">
+                <div class="card-content">
+                    <h3>تصميم فرعوني</h3>
+                    <p>واجهة مستوحاة من الحضارة المصرية القديمة مع تفاصيل فرعونية.</p>
+                    <a href="pharaonic.html">عرض الصفحة</a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://h.top4top.io/p_34183y0aj4.png" alt="تصميم الغرب الأمريكي">
+                <div class="card-content">
+                    <h3>تصميم الغرب الأمريكي</h3>
+                    <p>تصميم مستوحى من أجواء الويستर्न مع طابع رعاة البقر.</p>
+                    <a href="western.html">عرض الصفحة</a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://i.top4top.io/p_3418dslmm5.png" alt="تصميم أساسن كريد">
+                <div class="card-content">
+                    <h3>تصميم أساسن كريد</h3>
+                    <p>واجهة مستوحاة من لعبة Assassin's Creed مع طابع مغامرات تاريخي.</p>
+                    <a href="assassins.html">عرض الصفحة</a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://j.top4top.io/p_3418jypbr6.png" alt="تصميم مستقبلي">
+                <div class="card-content">
+                    <h3>تصميم مستقبلي</h3>
+                    <p>تصميم بنيون وأضواء مستقبلية يعكس التكنولوجيا المتقدمة.</p>
+                    <a href="futuristic.html">عرض الصفحة</a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://k.top4top.io/p_34188c87t7.png" alt="تصميم عصري">
+                <div class="card-content">
+                    <h3>تصميم عصري</h3>
+                    <p>تصميم عصري يجمع بين الأناقة والوظائف الحديثة.</p>
+                    <a href="modern.html">عرض الصفحة</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- زر تشغيل الأغنية -->
+    <div class="music-button play" id="musicButton"></div>
+    <!-- عنصر الصوت -->
+    <audio id="backgroundMusic" src="https://f.top4top.io/m_3418g52911.mp3"></audio>
+    <script>
+        const musicButton = document.getElementById('musicButton');
+        const audio = document.getElementById('backgroundMusic');
+        musicButton.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                musicButton.classList.remove('play');
+                musicButton.classList.add('pause');
+            } else {
+                audio.pause();
+                musicButton.classList.remove('pause');
+                musicButton.classList.add('play');
+            }
+        });
+    </script>
+</body>
+</html>
