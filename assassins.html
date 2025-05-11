@@ -1,1 +1,244 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mohammad Salem - تسجيل الدخول</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: url("https://f.top4top.io/p_3418l9up51.jpg") no-repeat
+          center center fixed;
+        background-size: cover;
+        overflow: hidden;
+        font-family: "Cinzel", serif;
+      }
+
+      .container {
+        position: relative;
+        width: 420px;
+        padding: 40px;
+        background: rgba(10, 25, 47, 0.9);
+        border: 2px solid #4b9cd3;
+        border-radius: 10px;
+        box-shadow: 0 0 30px rgba(75, 156, 211, 0.3);
+        text-align: center;
+        animation: fadeIn 1.2s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .title {
+        font-size: 2.8em;
+        color: #e6f0fa;
+        margin-bottom: 25px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        text-shadow: 0 0 15px rgba(75, 156, 211, 0.8);
+        font-weight: 700;
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+        position: relative;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 12px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid #4b9cd3;
+        border-radius: 5px;
+        color: #e6f0fa;
+        font-size: 1em;
+        outline: none;
+        transition: 0.3s;
+      }
+
+      .form-group input:focus {
+        border-color: #e6f0fa;
+        box-shadow: 0 0 12px rgba(75, 156, 211, 0.5);
+      }
+
+      .form-group label {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        color: #4b9cd3;
+        font-size: 0.9em;
+        pointer-events: none;
+        transition: 0.3s;
+      }
+
+      .form-group input:focus ~ label,
+      .form-group input:valid ~ label {
+        top: -10px;
+        font-size: 0.8em;
+        color: #e6f0fa;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 12px;
+        background: #4b9cd3;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        font-size: 1.1em;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .btn:hover {
+        background: #6ab0de;
+        box-shadow: 0 0 15px rgba(75, 156, 211, 0.7);
+      }
+
+      .links {
+        margin-top: 20px;
+        color: #4b9cd3;
+        font-size: 0.9em;
+      }
+
+      .links a {
+        color: #e6f0fa;
+        text-decoration: none;
+        margin: 0 15px;
+        transition: 0.3s;
+      }
+
+      .links a:hover {
+        color: #6ab0de;
+        text-decoration: underline;
+      }
+
+      .snow {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .snowflake {
+        position: absolute;
+        background: #e6f0fa;
+        border-radius: 50%;
+        opacity: 0.7;
+        animation: fall linear infinite;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(-10vh);
+        }
+        100% {
+          transform: translateY(100vh);
+        }
+      }
+
+      .glow-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          circle,
+          rgba(75, 156, 211, 0.2),
+          transparent
+        );
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      @media (max-width: 500px) {
+        .container {
+          width: 90%;
+          padding: 25px;
+        }
+
+        .title {
+          font-size: 2.2em;
+        }
+      }
+    </style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="snow" id="snow"></div>
+    <div class="container">
+      <div class="glow-overlay"></div>
+      <h1 class="title">Mohammad Salem</h1>
+      <form id="loginForm">
+        <div class="form-group">
+          <input type="text" id="username" required />
+          <label for="username">اسم المستخدم</label>
+        </div>
+        <div class="form-group">
+          <input type="password" id="password" required />
+          <label for="password">كلمة المرور</label>
+        </div>
+        <button type="submit" class="btn">تسجيل الدخول</button>
+      </form>
+      <div class="links">
+        <a href="assassins3.html">تسجيل حساب جديد</a>
+        <a href="assassins2.html">نسيت كلمة المرور؟</a>
+      </div>
+    </div>
+
+    <script>
+      const loginForm = document.getElementById("loginForm");
+
+      loginForm.addEventListener("submit", e => {
+        e.preventDefault();
+        const username = document.getElementById("username").value;
+        // محاكاة تسجيل الدخول الناجح
+        localStorage.setItem("username", username); // حفظ اسم المستخدم مؤقتًا
+        window.location.href = "assassins4.html"; // الانتقال لصفحة الترحيب
+      });
+
+      function createSnowflake() {
+        const snowflake = document.createElement("div");
+        snowflake.classList.add("snowflake");
+        snowflake.style.width = `${Math.random() * 5 + 2}px`;
+        snowflake.style.height = snowflake.style.width;
+        snowflake.style.left = `${Math.random() * 100}vw`;
+        snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`;
+        snowflake.style.opacity = Math.random() * 0.5 + 0.3;
+        document.getElementById("snow").appendChild(snowflake);
+
+        setTimeout(() => {
+          snowflake.remove();
+        }, 10000);
+      }
+
+      setInterval(createSnowflake, 200);
+    </script>
+  </body>
+</html>
 
