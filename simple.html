@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة تسجيل الدخول</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background: url('https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 60px;
+            position: relative;
+            width: 100%;
+        }
+
+        .server-name {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+            position: absolute;
+            top: -10px; 
+            left: 50%;
+            transform: translateX(-50%); 
+        }
+
+        .server-name h1 {
+            color: #1a3c5e;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .login-container {
+            display: flex;
+            gap: 30px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 1s ease-in-out;
+            margin-top: 80px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-box, .signup-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            width: 320px;
+            transition: all 0.3s ease;
+        }
+
+        .login-box:hover, .signup-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            width: 100px;
+            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+        }
+
+        h2 {
+            color: #1a3c5e;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c4a6b;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #e8f0fe;
+            font-size: 16px;
+            color: #1a3c5e;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            background: #d1e0ff;
+            box-shadow: 0 0 5px rgba(46, 82, 152, 0.3);
+        }
+
+        .login-btn, .signup-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(90deg, #1a3c5e, #3b6ea5);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover, .signup-btn:hover {
+            background: linear-gradient(90deg, #3b6ea5, #1a3c5e);
+            transform: scale(1.02);
+        }
+
+        .forgot-password, .switch-mode {
+            margin-top: 15px;
+        }
+
+        .forgot-password a, .switch-mode a {
+            color: #3b6ea5;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .forgot-password a:hover, .switch-mode a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- اسم السيرفر -->
+        <div class="server-name">
+            <h1>اسم السيرفر هنا</h1>
+        </div>
+
+       
+        <div class="login-container">
+            <!-- تسجيل الدخول -->
+            <div class="login-box">
+                <div class="logo">
+                    <img src="https://via.placeholder.com/100" alt="Logo">
+                </div>
+                <h2>تسجيل الدخول</h2>
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="input-group">
+                        <label for="username">اسم المستخدم</label>
+                        <input type="text" id="username" name="username" placeholder="أدخل اسم المستخدم" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">كلمة المرور</label>
+                        <input type="password" id="password" name="password" placeholder="أدخل كلمة المرور" required>
+                    </div>
+                    <button type="submit" class="login-btn">تسجيل الدخول</button>
+                </form>
+                <p class="forgot-password"><a href="#">نسيت كلمة المرور؟</a></p>
+                <p class="switch-mode">ليس لديك حساب؟ <a href="#" onclick="showSignUp()">سجل الآن</a></p>
+            </div>
+
+            <!--  لأول مرة -->
+            <div class="signup-box" style="display: none;">
+                <div class="logo">
+                    <img src="https://via.placeholder.com/100" alt="Logo">
+                </div>
+                <h2>إنشاء حساب جديد</h2>
+                <form id="signupForm" onsubmit="handleSignUp(event)">
+                    <div class="input-group">
+                        <label for="newUsername">اسم المستخدم</label>
+                        <input type="text" id="newUsername" name="newUsername" placeholder="اختر اسم المستخدم" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="email">البريد الإلكتروني</label>
+                        <input type="email" id="email" name="email" placeholder="أدخل بريدك الإلكتروني" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="newPassword">كلمة المرور</label>
+                        <input type="password" id="newPassword" name="newPassword" placeholder="اختر كلمة المرور" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="confirmPassword">تأكيد كلمة المرور</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="أعد إدخال كلمة المرور" required>
+                    </div>
+                    <button type="submit" class="signup-btn">إنشاء الحساب</button>
+                </form>
+                <p class="switch-mode">لديك حساب بالفعل؟ <a href="#" onclick="showLogin()">تسجيل الدخول</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSignUp() {
+            document.querySelector('.login-box').style.display = 'none';
+            document.querySelector('.signup-box').style.display = 'block';
+        }
+
+        function showLogin() {
+            document.querySelector('.signup-box').style.display = 'none';
+            document.querySelector('.login-box').style.display = 'block';
+        }
+
+        // التعامل مع تسجيل الدخول
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            console.log('اسم المستخدم:', username);
+            console.log('كلمة المرور:', password);
+
+            // هنا يمكنك إضافة الكود لربط قاعدة البيانات لاحقًا
+            alert('تم تسجيل الدخول بنجاح (محاكاة)!');
+        }
+
+        // التعامل مع إنشاء حساب جديد
+        function handleSignUp(event) {
+            event.preventDefault();
+            const newUsername = document.getElementById('newUsername').value;
+            const email = document.getElementById('email').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (newPassword !== confirmPassword) {
+                alert('كلمة المرور غير متطابقة!');
+                return;
+            }
+
+            console.log('اسم المستخدم الجديد:', newUsername);
+            console.log('البريد الإلكتروني:', email);
+            console.log('كلمة المرور الجديدة:', newPassword);
+
+            //  إضافة الكود لربط قاعدة البيانات لاحقًا
+            alert('تم إنشاء الحساب بنجاح (محاكاة)!');
+            showLogin();
+        }
+    </script>
+</body>
+</html>
