@@ -1,1 +1,210 @@
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>استعادة كلمة المرور</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Exo 2", sans-serif;
+      }
+
+      body {
+        background: #0a0a0a;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .background {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: url("https://assets.onecompiler.app/42ydxf8da/43egk5bkx/cool-geometric-triangular-figure-neon-laser-light-great-backgrounds-wallpapers.jpg");
+        background-size: cover;
+        background-position: center;
+        filter: brightness(0.6);
+        z-index: -1;
+      }
+
+      .container {
+        background: rgba(10, 10, 10, 0.85);
+        width: 450px;
+        padding: 40px;
+        border: 2px solid;
+        border-image: linear-gradient(to right, #00d4ff, #ff1a1a) 1;
+        border-radius: 10px;
+        box-shadow: 0 0 30px rgba(0, 212, 255, 0.5),
+          0 0 50px rgba(255, 26, 26, 0.3);
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      .container::after {
+        content: "";
+        position: absolute;
+        bottom: -20px;
+        left: 0;
+        width: 100%;
+        height: 20px;
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 212, 255, 0.2),
+          transparent
+        );
+        filter: blur(10px);
+        z-index: -1;
+      }
+
+      .logo {
+        font-family: "Orbitron", sans-serif;
+        font-size: 28px;
+        color: #00d4ff;
+        text-shadow: 0 0 10px #00d4ff, 0 0 20px #ff1a1a;
+        margin-bottom: 20px;
+      }
+
+      h2 {
+        font-family: "Orbitron", sans-serif;
+        font-size: 20px;
+        color: #00d4ff;
+        text-shadow: 0 0 10px #00d4ff;
+        margin-bottom: 20px;
+      }
+
+      .form input {
+        width: 100%;
+        padding: 12px;
+        margin: 15px 0;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid #00d4ff;
+        color: white;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: all 0.3s;
+      }
+
+      .form input:focus {
+        outline: none;
+        border-image: linear-gradient(to right, #00d4ff, #ff1a1a) 1;
+        box-shadow: 0 0 15px #00d4ff;
+      }
+
+      .form button {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(to right, #00d4ff, #ff1a1a);
+        border: none;
+        color: #0a0a0a;
+        font-family: "Orbitron", sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .form button:hover {
+        background: linear-gradient(to left, #00d4ff, #ff1a1a);
+        box-shadow: 0 0 20px #00d4ff, 0 0 20px #ff1a1a;
+      }
+
+      .back-link {
+        color: #ff1a1a;
+        font-size: 14px;
+        margin-top: 15px;
+        display: inline-block;
+        transition: all 0.3s;
+      }
+
+      .back-link:hover {
+        text-shadow: 0 0 10px #ff1a1a;
+      }
+
+      .message {
+        margin-top: 15px;
+        font-size: 14px;
+        color: #00d4ff;
+        text-shadow: 0 0 5px #00d4ff;
+      }
+
+      .error {
+        color: #ff1a1a;
+        text-shadow: 0 0 5px #ff1a1a;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="background"></div>
+    <div class="container">
+      <div class="logo">Mohammad Salem</div>
+      <h2>استعادة كلمة المرور</h2>
+      <div class="form">
+        <input
+          type="email"
+          id="recover-email"
+          placeholder="أدخل بريدك الإلكتروني"
+        />
+        <button onclick="recoverPassword()">استعادة كلمة المرور</button>
+        <a href="futuristic.html" class="back-link">العودة لتسجيل الدخول</a>
+        <div class="message" id="recover-message"></div>
+      </div>
+    </div>
+
+    <script>
+      function recoverPassword() {
+        try {
+          const email = document.getElementById("recover-email").value;
+          const messageDiv = document.getElementById("recover-message");
+
+          if (!email) {
+            messageDiv.classList.add("error");
+            messageDiv.textContent = "يرجى إدخال بريدك الإلكتروني";
+            console.log("Password recovery failed: Missing email");
+            return;
+          }
+
+          // Check if user exists in localStorage
+          const user = JSON.parse(localStorage.getItem("user"));
+
+          if (!user) {
+            messageDiv.classList.add("error");
+            messageDiv.textContent =
+              "لا يوجد حساب مسجل. يرجى إنشاء حساب أولاً.";
+            console.log("Password recovery failed: No user found");
+            return;
+          }
+
+          if (user.email !== email) {
+            messageDiv.classList.add("error");
+            messageDiv.textContent = "البريد الإلكتروني غير مسجل.";
+            console.log("Password recovery failed: Email not found");
+            return;
+          }
+
+          messageDiv.classList.remove("error");
+          messageDiv.textContent = `كلمة المرور الخاصة بك هي: ${user.password}`;
+          console.log("Password recovered successfully:", user.password);
+        } catch (error) {
+          console.error("Error in password recovery:", error);
+          const messageDiv = document.getElementById("recover-message");
+          messageDiv.classList.add("error");
+          messageDiv.textContent =
+            "حدث خطأ أثناء استعادة كلمة المرور. حاول مرة أخرى.";
+        }
+      }
+    </script>
+  </body>
+</html>
 
