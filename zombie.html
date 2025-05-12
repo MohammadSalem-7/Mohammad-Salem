@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohammad Salem - Zombie Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Creepster', cursive;
+        }
+
+        body {
+            background: url('https://h.top4top.io/p_34199mgfz1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            text-align: center;
+            width: 400px;
+            position: relative;
+            border: 2px solid #ff0000;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px solid #00ff00;
+            border-radius: 20px;
+            z-index: -1;
+            animation: glitch 2s infinite;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        h1 {
+            color: #ff0000;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 5px #00ff00;
+            margin-bottom: 20px;
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1em;
+            outline: none;
+        }
+
+        input::placeholder {
+            color: #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #ff0000;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #00ff00;
+            color: #000;
+        }
+
+        .switch {
+            color: #00ff00;
+            margin-top: 15px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .switch:hover {
+            color: #ff0000;
+        }
+
+        .error {
+            color: #ff0000;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        /* Blood Splatter Transition */
+        #blood-splatter {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://b.top4top.io/p_34199l1zd1.jpg') center center;
+            background-size: cover;
+            opacity: 0;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .splatter-active {
+            animation: splatter 1s forwards;
+        }
+
+        @keyframes splatter {
+            0% { opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0; }
+        }
+
+        /* Flicker Effect */
+        .flicker {
+            animation: flicker 0.1s infinite;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="blood-splatter"></div>
+    <div class="container">
+        <h1>Mohammad Salem</h1>
+
+        <!-- Login Form -->
+        <div id="login" class="form-section active">
+            <input type="text" id="login-username" placeholder="Username" required>
+            <input type="password" id="login-password" placeholder="Password" required>
+            <button onclick="handleLogin()">Login</button>
+            <div class="switch" onclick="showSection('register')">New? Register here</div>
+            <div class="switch" onclick="showSection('forgot')">Forgot Password?</div>
+            <div id="login-error" class="error"></div>
+        </div>
+
+        <!-- Register Form -->
+        <div id="register" class="form-section">
+            <input type="text" id="reg-username" placeholder="Username" required>
+            <input type="email" id="reg-email" placeholder="Email" required>
+            <input type="password" id="reg-password" placeholder="Password" required>
+            <input type="password" id="reg-confirm-password" placeholder="Confirm Password" required>
+            <button onclick="handleRegister()">Register</button>
+            <div class="switch" onclick="showSection('login')">Back to Login</div>
+            <div id="register-error" class="error"></div>
+        </div>
+
+        <!-- Forgot Password Form -->
+        <div id="forgot" class="form-section">
+            <input type="email" id="forgot-email" placeholder="Enter your Email" required>
+            <button onclick="handleForgotPassword()">Reset Password</button>
+            <div class="switch" onclick="showSection('login')">Back to Login</div>
+            <div id="forgot-error" class="error"></div>
+        </div>
+    </div>
+
+    <script>
+        // Simulated user database (in a real app, this would be on a server)
+        let users = JSON.parse(localStorage.getItem('users')) || {};
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.form-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            clearErrors();
+            triggerFlicker();
+        }
+
+        function clearErrors() {
+            document.getElementById('login-error').textContent = '';
+            document.getElementById('register-error').textContent = '';
+            document.getElementById('forgot-error').textContent = '';
+        }
+
+        function triggerFlicker() {
+            const container = document.querySelector('.container');
+            container.classList.add('flicker');
+            setTimeout(() => container.classList.remove('flicker'), 500);
+        }
+
+        function triggerSplatter() {
+            const splatter = document.getElementById('blood-splatter');
+            splatter.classList.add('splatter-active');
+            setTimeout(() => splatter.classList.remove('splatter-active'), 1000);
+        }
+
+        function handleLogin() {
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+            const errorDiv = document.getElementById('login-error');
+
+            if (!username || !password) {
+                errorDiv.textContent = 'Please fill in all fields.';
+                triggerFlicker();
+                return;
+            }
+
+            if (users[username] && users[username].password === password) {
+                triggerSplatter();
+                setTimeout(() => {
+                    // Redirect to welcome page
+                    localStorage.setItem('loggedInUser', username);
+                    document.body.innerHTML = welcomePage;
+                    triggerFlicker();
+                }, 1000);
+            } else {
+                errorDiv.textContent = 'Invalid username or password.';
+                triggerFlicker();
+            }
+        }
+
+        function handleRegister() {
+            const username = document.getElementById('reg-username').value;
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            const confirmPassword = document.getElementById('reg-confirm-password').value;
+            const errorDiv = document.getElementById('register-error');
+
+            if (!username || !email || !password || !confirmPassword) {
+                errorDiv.textContent = 'Please fill in all fields.';
+                triggerFlicker();
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                errorDiv.textContent = 'Passwords do not match.';
+                triggerFlicker();
+                return;
+            }
+
+            if (users[username]) {
+                errorDiv.textContent = 'Username already exists.';
+                triggerFlicker();
+                return;
+            }
+
+            users[username] = { email, password };
+            localStorage.setItem('users', JSON.stringify(users));
+            alert('Registration successful! Please login.');
+            triggerFlicker();
+            showSection('login');
+        }
+
+        function handleForgotPassword() {
+            const email = document.getElementById('forgot-email').value;
+            const errorDiv = document.getElementById('forgot-error');
+
+            if (!email) {
+                errorDiv.textContent = 'Please enter your email.';
+                triggerFlicker();
+                return;
+            }
+
+            let userExists = Object.values(users).some(user => user.email === email);
+            if (userExists) {
+                alert('A password reset link has been sent to your email.');
+                triggerFlicker();
+                showSection('login');
+            } else {
+                errorDiv.textContent = 'Email not found.';
+                triggerFlicker();
+            }
+        }
+
+        // Welcome page HTML
+        const welcomePage = `
+            <div class="container" style="animation: flicker 0.1s infinite;">
+                <h1>Mohammad Salem's Zombie Server</h1>
+                <h2>Welcome, ${localStorage.getItem('loggedInUser') || 'Survivor'}!</h2>
+                <p>You've survived the login apocalypse. Ready to battle zombies?</p>
+                <button onclick="window.location.reload()">Back to Login</button>
+            </div>
+        `;
+    </script>
+</body>
+</html>
