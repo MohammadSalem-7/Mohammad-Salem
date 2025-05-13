@@ -1,85 +1,361 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mohammad Salem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background: url('https://wallpaperaccess.com/full/3204565.jpg') no-repeat center center fixed;
+            margin: 0;
+            padding: 0;
+            background: url('https://c.top4top.io/p_3420rvl9w1.jpg') no-repeat center center fixed;
             background-size: cover;
-            color: blue;
-            font-family: Arial, sans-serif;
-            text-align: center;
+            font-family: 'Amiri', serif;
+            color: #ffffff;
             overflow: hidden;
-        }
-        .container {
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            position: relative;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            z-index: 1;
         }
         h1 {
+            font-family: 'Orbitron', sans-serif;
             font-size: 4rem;
-            text-transform: uppercase;
-            text-shadow: 0 0 25px #ff00ff, 0 0 50px #00ffff;
+            font-weight: 700;
+            color: #00eaff;
+            text-shadow: 0 0 15px #00eaff, 0 0 30px #00b7eb;
+            margin-bottom: 20px;
+            animation: neonGlow 1.5s ease-in-out infinite alternate;
+        }
+        p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: #e0e0e0;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            animation: slideUp 1s ease-in-out;
         }
         .buttons {
-            margin-top: 30px;
             display: flex;
-            flex-direction: column; /* التغيير هنا لجعل الأزرار عمودية */
-            gap: 20px;
-            align-items: center; /* لضمان توسيط الأزرار */
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
         }
         .btn {
-            padding: 15px 30px;
-            font-size: 1.5rem;
+            padding: 15px 40px;
+            font-size: 1.25rem;
+            font-weight: 400;
             border: none;
-            border-radius: 10px;
+            border-radius: 50px;
             cursor: pointer;
-            transition: 0.3s;
-            text-transform: uppercase;
-            text-decoration: none; /* إزالة التسطير من الروابط */
-            display: inline-block; /* لضمان عمل التحويلات بشكل صحيح */
+            text-decoration: none;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 200px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            background: rgba(0, 0, 0, 0.3);
         }
-        .music-btn {
-            background: #ff00ff;
-            color: white;
-            box-shadow: 0 0 20px #ff00ff;
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
         }
-        .video-btn {
-            background: #00ffff;
-            color: black;
-            box-shadow: 0 0 20px #00ffff;
-        }
-        .love-btn {
-            background: #ff69b4;
-            color: white;
-            box-shadow: 0 0 20px #ff69b4;
-        }
-        .haha-btn {
-            background: #444;
-            color: white;
-            box-shadow: 0 0 20px red;
+        .btn:hover::before {
+            left: 100%;
         }
         .btn:hover {
-            transform: scale(1.1);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 234, 255, 0.5);
+        }
+        .music-btn { background: rgba(233, 30, 99, 0.7); box-shadow: 0 0 10px rgba(233, 30, 99, 0.5); }
+        .video-btn { background: rgba(33, 150, 243, 0.7); box-shadow: 0 0 10px rgba(33, 150, 243, 0.5); }
+        .love-btn { background: rgba(255, 64, 129, 0.7); box-shadow: 0 0 10px rgba(255, 64, 129, 0.5); }
+        .haha-btn { background: rgba(76, 175, 80, 0.7); box-shadow: 0 0 10px rgba(76, 175, 80, 0.5); }
+        .work-btn { background: rgba(255, 152, 0, 0.7); box-shadow: 0 0 10px rgba(255, 152, 0, 0.5); }
+        .music-player-btn {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #fff;
+            background: transparent;
+            animation: rgbGlow 3s infinite;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+        .music-player-btn:hover {
+            transform: scale(1.2);
+        }
+        #particleCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.3;
+        }
+        #matrixCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+        }
+        @keyframes neonGlow {
+            from { text-shadow: 0 0 10px #00eaff, 0 0 20px #00b7eb; }
+            to { text-shadow: 0 0 20px #00eaff, 0 0 40px #00b7eb; }
+        }
+        @keyframes slideUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes rgbGlow {
+            0% { box-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000; }
+            33% { box-shadow: 0 0 15px #00ff00, 0 0 30px #00ff00; }
+            66% { box-shadow: 0 0 15px #0000ff, 0 0 30px #0000ff; }
+            100% { box-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000; }
+        }
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+            p { font-size: 1.2rem; }
+            .btn { font-size: 1rem; padding: 12px 30px; width: 180px; }
+            .music-player-btn { width: 50px; height: 50px; font-size: 1.2rem; }
         }
     </style>
 </head>
 <body>
+    <canvas id="particleCanvas"></canvas>
+    <canvas id="matrixCanvas"></canvas>
     <div class="container">
         <h1>Mohammad Salem</h1>
         <p>اختر وجهتك</p>
         <div class="buttons">
             <a href="music.html" class="btn music-btn">الأغاني</a>
             <a href="video.html" class="btn video-btn">الفيديوهات</a>
-            <a href="love.html" class="btn love-btn">حب</a>
+            <a href="love.html" class="btn love-btn">love/a>
             <a href="haha.html" class="btn haha-btn">M</a>
-            <a href="Work.html" class="btn video-btn">My Work</a>
-
+            <a href="Work.html" class="btn work-btn">Web</a>
         </div>
     </div>
+    <button class="music-player-btn" id="musicPlayerBtn" onclick="toggleMusic()">🎵</button>
+    <audio id="sadMusic" src="https://j.top4top.io/m_3420ihcfo1.mp3" loop></audio>
+    <script>
+        // Particle Animation
+        const particleCanvas = document.getElementById('particleCanvas');
+        const pCtx = particleCanvas.getContext('2d');
+        particleCanvas.width = window.innerWidth;
+        particleCanvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 100;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * particleCanvas.width;
+                this.y = Math.random() * particleCanvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.size > 0.2) this.size -= 0.01;
+                if (this.x < 0 || this.x > particleCanvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > particleCanvas.height) this.speedY *= -1;
+            }
+            draw() {
+                pCtx.fillStyle = 'rgba(0, 234, 255, 0.7)';
+                pCtx.beginPath();
+                pCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                pCtx.fill();
+            }
+        }
+
+        function initParticles() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            pCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+            particles.forEach((particle, index) => {
+                particle.update();
+                particle.draw();
+                if (particle.size <= 0.2) {
+                    particles.splice(index, 1);
+                    particles.push(new Particle());
+                }
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+        window.addEventListener('resize', () => {
+            particleCanvas.width = window.innerWidth;
+            particleCanvas.height = window.innerHeight;
+        });
+
+        // Matrix Effect
+        const matrixCanvas = document.getElementById('matrixCanvas');
+        const mCtx = matrixCanvas.getContext('2d');
+        matrixCanvas.width = window.innerWidth;
+        matrixCanvas.height = window.innerHeight;
+
+        const chars = '01';
+        const fontSize = 14;
+        const columns = matrixCanvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(0);
+
+        function drawMatrix() {
+            mCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            mCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+            mCtx.fillStyle = '#00ff00';
+            mCtx.font = `${fontSize}px monospace`;
+
+            drops.forEach((y, i) => {
+                const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                mCtx.fillText(text, i * fontSize, y * fontSize);
+                if (y * fontSize > matrixCanvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            });
+        }
+
+        function startMatrixEffect(url) {
+            matrixCanvas.style.display = 'block';
+            const matrixInterval = setInterval(drawMatrix, 50);
+            setTimeout(() => {
+                clearInterval(matrixInterval);
+                matrixCanvas.style.display = 'none';
+                window.location.href = url;
+            }, 2000);
+        }
+
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const url = button.getAttribute('href');
+                startMatrixEffect(url);
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            matrixCanvas.width = window.innerWidth;
+            matrixCanvas.height = window.innerHeight;
+            drops.length = Math.floor(matrixCanvas.width / fontSize);
+            drops.fill(0);
+        });
+
+        // Music Player
+        const audio = document.getElementById('sadMusic');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+                document.querySelector('.music-player-btn').textContent = '🎵';
+            } else {
+                audio.play();
+                isPlaying = true;
+                document.querySelector('.music-player-btn').textContent = '⏸';
+            }
+        }
+
+        // Random Movement for Music Button
+        const musicBtn = document.getElementById('musicPlayerBtn');
+        let btnX = window.innerWidth - 80; // Initial position (bottom-right)
+        let btnY = window.innerHeight - 80;
+        let speedX = (Math.random() * 4 - 2); // Random speed between -2 and 2
+        let speedY = (Math.random() * 4 - 2);
+
+        function moveButton() {
+            const btnWidth = 60; // Button width
+            const btnHeight = 60; // Button height
+            const container = document.querySelector('.container');
+            const containerRect = container.getBoundingClientRect();
+
+            // Update position
+            btnX += speedX;
+            btnY += speedY;
+
+            // Boundary checks to keep button within viewport
+            if (btnX < 0 || btnX > window.innerWidth - btnWidth) {
+                speedX *= -1;
+                btnX = Math.max(0, Math.min(btnX, window.innerWidth - btnWidth));
+            }
+            if (btnY < 0 || btnY > window.innerHeight - btnHeight) {
+                speedY *= -1;
+                btnY = Math.max(0, Math.min(btnY, window.innerHeight - btnHeight));
+            }
+
+            // Avoid overlapping with container
+            if (
+                btnX + btnWidth > containerRect.left &&
+                btnX < containerRect.right &&
+                btnY + btnHeight > containerRect.top &&
+                btnY < containerRect.bottom
+            ) {
+                speedX *= -1;
+                speedY *= -1;
+            }
+
+            // Apply position
+            musicBtn.style.left = `${btnX}px`;
+            musicBtn.style.top = `${btnY}px`;
+
+            // Occasionally change direction
+            if (Math.random() < 0.02) {
+                speedX = (Math.random() * 4 - 2);
+                speedY = (Math.random() * 4 - 2);
+            }
+
+            requestAnimationFrame(moveButton);
+        }
+
+        // Set initial position and start movement
+        musicBtn.style.position = 'fixed';
+        musicBtn.style.left = `${btnX}px`;
+        musicBtn.style.top = `${btnY}px`;
+        moveButton();
+
+        window.addEventListener('resize', () => {
+            btnX = Math.min(btnX, window.innerWidth - 80);
+            btnY = Math.min(btnY, window.innerHeight - 80);
+        });
+    </script>
 </body>
 </html>
