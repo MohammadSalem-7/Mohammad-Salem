@@ -36,6 +36,7 @@
             text-shadow: 0 0 15px #00eaff, 0 0 30px #00b7eb;
             margin-bottom: 20px;
             animation: neonGlow 1.5s ease-in-out infinite alternate;
+            cursor: pointer;
         }
         p {
             font-size: 1.5rem;
@@ -129,6 +130,15 @@
             background: rgba(0, 0, 0, 0.9);
             display: none;
         }
+        #fireworksCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            display: none;
+        }
         @keyframes neonGlow {
             from { text-shadow: 0 0 10px #00eaff, 0 0 20px #00b7eb; }
             to { text-shadow: 0 0 20px #00eaff, 0 0 40px #00b7eb; }
@@ -154,8 +164,9 @@
 <body>
     <canvas id="particleCanvas"></canvas>
     <canvas id="matrixCanvas"></canvas>
+    <canvas id="fireworksCanvas"></canvas>
     <div class="container">
-        <h1>Mohammad Salem</h1>
+        <h1 id="nameTrigger">Mohammad Salem</h1>
         <p>اختر وجهتك</p>
         <div class="buttons">
             <a href="music.html" class="btn music-btn">الأغاني</a>
@@ -167,6 +178,7 @@
     </div>
     <button class="music-player-btn" id="musicPlayerBtn" onclick="toggleMusic()">🎵</button>
     <audio id="sadMusic" src="https://j.top4top.io/m_3420ihcfo1.mp3" loop></audio>
+    <audio id="fireworksSound" src="https://e.top4top.io/m_34208xqis1.mp3"></audio>
     <script>
         // Particle Animation
         const particleCanvas = document.getElementById('particleCanvas');
@@ -222,11 +234,6 @@
         initParticles();
         animateParticles();
 
-        window.addEventListener('resize', () => {
-            particleCanvas.width = window.innerWidth;
-            particleCanvas.height = window.innerHeight;
-        });
-
         // Matrix Effect
         const matrixCanvas = document.getElementById('matrixCanvas');
         const mCtx = matrixCanvas.getContext('2d');
@@ -235,8 +242,8 @@
 
         const chars = '01';
         const fontSize = 14;
-        const columns = matrixCanvas.width / fontSize;
-        const drops = Array(Math.floor(columns)).fill(0);
+        let columns = matrixCanvas.width / fontSize;
+        let drops = Array(Math.floor(columns)).fill(0);
 
         function drawMatrix() {
             mCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
@@ -272,13 +279,6 @@
             });
         });
 
-        window.addEventListener('resize', () => {
-            matrixCanvas.width = window.innerWidth;
-            matrixCanvas.height = window.innerHeight;
-            drops.length = Math.floor(matrixCanvas.width / fontSize);
-            drops.fill(0);
-        });
-
         // Music Player
         const audio = document.getElementById('sadMusic');
         let isPlaying = false;
@@ -297,22 +297,20 @@
 
         // Random Movement for Music Button
         const musicBtn = document.getElementById('musicPlayerBtn');
-        let btnX = window.innerWidth - 80; // Initial position (bottom-right)
+        let btnX = window.innerWidth - 80;
         let btnY = window.innerHeight - 80;
-        let speedX = (Math.random() * 4 - 2); // Random speed between -2 and 2
+        let speedX = (Math.random() * 4 - 2);
         let speedY = (Math.random() * 4 - 2);
 
         function moveButton() {
-            const btnWidth = 60; // Button width
-            const btnHeight = 60; // Button height
+            const btnWidth = 60;
+            const btnHeight = 60;
             const container = document.querySelector('.container');
             const containerRect = container.getBoundingClientRect();
 
-            // Update position
             btnX += speedX;
             btnY += speedY;
 
-            // Boundary checks to keep button within viewport
             if (btnX < 0 || btnX > window.innerWidth - btnWidth) {
                 speedX *= -1;
                 btnX = Math.max(0, Math.min(btnX, window.innerWidth - btnWidth));
@@ -322,7 +320,6 @@
                 btnY = Math.max(0, Math.min(btnY, window.innerHeight - btnHeight));
             }
 
-            // Avoid overlapping with container
             if (
                 btnX + btnWidth > containerRect.left &&
                 btnX < containerRect.right &&
@@ -333,11 +330,9 @@
                 speedY *= -1;
             }
 
-            // Apply position
             musicBtn.style.left = `${btnX}px`;
             musicBtn.style.top = `${btnY}px`;
 
-            // Occasionally change direction
             if (Math.random() < 0.02) {
                 speedX = (Math.random() * 4 - 2);
                 speedY = (Math.random() * 4 - 2);
@@ -346,13 +341,83 @@
             requestAnimationFrame(moveButton);
         }
 
-        // Set initial position and start movement
         musicBtn.style.position = 'fixed';
         musicBtn.style.left = `${btnX}px`;
         musicBtn.style.top = `${btnY}px`;
         moveButton();
 
+        // Fireworks Effect
+        const fireworksCanvas = document.getElementById('fireworksCanvas');
+        const fCtx = fireworksCanvas.getContext('2d');
+        fireworksCanvas.width = window.innerWidth;
+        fireworksCanvas.height = window.innerHeight;
+
+        const fireworks = [];
+        class Firework {
+            constructor() {
+                this.x = Math.random() * fireworksCanvas.width;
+                this.y = Math.random() * fireworksCanvas.height;
+                this.size = Math.random() * 3 + 2;
+                this.speedX = Math.random() * 6 - 3;
+                this.speedY = Math.random() * 6 - 3;
+                this.opacity = 1;
+                this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.opacity -= 0.02;
+                if (this.opacity < 0) this.opacity = 0;
+            }
+            draw() {
+                fCtx.fillStyle = this.color;
+                fCtx.globalAlpha = this.opacity;
+                fCtx.beginPath();
+                fCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                fCtx.fill();
+            }
+        }
+
+        function animateFireworks() {
+            fCtx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            fCtx.fillRect(0, 0, fireworksCanvas.width, fireworksCanvas.height);
+            fireworks.forEach((firework, index) => {
+                firework.update();
+                firework.draw();
+                if (firework.opacity <= 0) {
+                    fireworks.splice(index, 1);
+                }
+            });
+            if (fireworks.length > 0) {
+                requestAnimationFrame(animateFireworks);
+            } else {
+                fireworksCanvas.style.display = 'none';
+                fCtx.globalAlpha = 1;
+            }
+        }
+
+        document.getElementById('nameTrigger').addEventListener('click', () => {
+            fireworksCanvas.style.display = 'block';
+            document.getElementById('fireworksSound').play();
+            for (let i = 0; i < 50; i++) {
+                fireworks.push(new Firework());
+            }
+            animateFireworks();
+            setTimeout(() => {
+                fireworks.length = 0;
+            }, 2000);
+        });
+
+        // Resize Handling
         window.addEventListener('resize', () => {
+            particleCanvas.width = window.innerWidth;
+            particleCanvas.height = window.innerHeight;
+            matrixCanvas.width = window.innerWidth;
+            matrixCanvas.height = window.innerHeight;
+            fireworksCanvas.width = window.innerWidth;
+            fireworksCanvas.height = window.innerHeight;
+            drops.length = Math.floor(matrixCanvas.width / fontSize);
+            drops.fill(0);
             btnX = Math.min(btnX, window.innerWidth - 80);
             btnY = Math.min(btnY, window.innerHeight - 80);
         });
