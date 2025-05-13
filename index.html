@@ -38,12 +38,13 @@
             animation: neonGlow 1.5s ease-in-out infinite alternate;
             cursor: pointer;
         }
-        p {
+        p#destination {
             font-size: 1.5rem;
             margin-bottom: 30px;
             color: #e0e0e0;
             text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
             animation: slideUp 1s ease-in-out;
+            cursor: pointer;
         }
         .buttons {
             display: flex;
@@ -111,6 +112,27 @@
         .music-player-btn:hover {
             transform: scale(1.2);
         }
+        .secret-btn {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #fff;
+            background: transparent;
+            animation: rgbGlow 3s infinite;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+        .secret-btn:hover {
+            transform: scale(1.2);
+        }
         #particleCanvas {
             position: absolute;
             top: 0;
@@ -139,6 +161,45 @@
             z-index: 5;
             display: none;
         }
+        #soundWaveCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            display: none;
+        }
+        #secretMessage {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            color: #00eaff;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 1.5rem;
+            text-align: center;
+            z-index: 10;
+            display: none;
+            text-shadow: 0 0 5px #00eaff;
+        }
+        .clock {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: #00eaff;
+            text-shadow: 0 0 10px #00eaff;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            z-index: 2;
+            animation: glitch 2s infinite;
+        }
         @keyframes neonGlow {
             from { text-shadow: 0 0 10px #00eaff, 0 0 20px #00b7eb; }
             to { text-shadow: 0 0 20px #00eaff, 0 0 40px #00b7eb; }
@@ -153,11 +214,21 @@
             66% { box-shadow: 0 0 15px #0000ff, 0 0 30px #0000ff; }
             100% { box-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000; }
         }
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
         @media (max-width: 600px) {
             h1 { font-size: 2.5rem; }
             p { font-size: 1.2rem; }
             .btn { font-size: 1rem; padding: 12px 30px; width: 180px; }
-            .music-player-btn { width: 50px; height: 50px; font-size: 1.2rem; }
+            .music-player-btn, .secret-btn { width: 50px; height: 50px; font-size: 1.2rem; }
+            .clock { font-size: 1rem; padding: 8px; }
+            #secretMessage { font-size: 1.2rem; padding: 15px; }
         }
     </style>
 </head>
@@ -165,9 +236,11 @@
     <canvas id="particleCanvas"></canvas>
     <canvas id="matrixCanvas"></canvas>
     <canvas id="fireworksCanvas"></canvas>
+    <canvas id="soundWaveCanvas"></canvas>
+    <div id="secretMessage">حلو فراغك :) </div>
     <div class="container">
         <h1 id="nameTrigger">Mohammad Salem</h1>
-        <p>اختر وجهتك</p>
+        <p id="destination">اختر وجهتك</p>
         <div class="buttons">
             <a href="music.html" class="btn music-btn">الأغاني</a>
             <a href="video.html" class="btn video-btn">الفيديوهات</a>
@@ -177,6 +250,8 @@
         </div>
     </div>
     <button class="music-player-btn" id="musicPlayerBtn" onclick="toggleMusic()">🎵</button>
+    <button class="secret-btn" id="secretBtn">💎</button>
+    <div class="clock" id="clock"></div>
     <audio id="sadMusic" src="https://j.top4top.io/m_3420ihcfo1.mp3" loop></audio>
     <audio id="fireworksSound" src="https://e.top4top.io/m_34208xqis1.mp3"></audio>
     <script>
@@ -252,7 +327,7 @@
             mCtx.font = `${fontSize}px monospace`;
 
             drops.forEach((y, i) => {
-                const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                const text = chars.charAt(Math.random() * chars.length);
                 mCtx.fillText(text, i * fontSize, y * fontSize);
                 if (y * fontSize > matrixCanvas.height && Math.random() > 0.975) {
                     drops[i] = 0;
@@ -278,73 +353,6 @@
                 startMatrixEffect(url);
             });
         });
-
-        // Music Player
-        const audio = document.getElementById('sadMusic');
-        let isPlaying = false;
-
-        function toggleMusic() {
-            if (isPlaying) {
-                audio.pause();
-                isPlaying = false;
-                document.querySelector('.music-player-btn').textContent = '🎵';
-            } else {
-                audio.play();
-                isPlaying = true;
-                document.querySelector('.music-player-btn').textContent = '⏸';
-            }
-        }
-
-        // Random Movement for Music Button
-        const musicBtn = document.getElementById('musicPlayerBtn');
-        let btnX = window.innerWidth - 80;
-        let btnY = window.innerHeight - 80;
-        let speedX = (Math.random() * 4 - 2);
-        let speedY = (Math.random() * 4 - 2);
-
-        function moveButton() {
-            const btnWidth = 60;
-            const btnHeight = 60;
-            const container = document.querySelector('.container');
-            const containerRect = container.getBoundingClientRect();
-
-            btnX += speedX;
-            btnY += speedY;
-
-            if (btnX < 0 || btnX > window.innerWidth - btnWidth) {
-                speedX *= -1;
-                btnX = Math.max(0, Math.min(btnX, window.innerWidth - btnWidth));
-            }
-            if (btnY < 0 || btnY > window.innerHeight - btnHeight) {
-                speedY *= -1;
-                btnY = Math.max(0, Math.min(btnY, window.innerHeight - btnHeight));
-            }
-
-            if (
-                btnX + btnWidth > containerRect.left &&
-                btnX < containerRect.right &&
-                btnY + btnHeight > containerRect.top &&
-                btnY < containerRect.bottom
-            ) {
-                speedX *= -1;
-                speedY *= -1;
-            }
-
-            musicBtn.style.left = `${btnX}px`;
-            musicBtn.style.top = `${btnY}px`;
-
-            if (Math.random() < 0.02) {
-                speedX = (Math.random() * 4 - 2);
-                speedY = (Math.random() * 4 - 2);
-            }
-
-            requestAnimationFrame(moveButton);
-        }
-
-        musicBtn.style.position = 'fixed';
-        musicBtn.style.left = `${btnX}px`;
-        musicBtn.style.top = `${btnY}px`;
-        moveButton();
 
         // Fireworks Effect
         const fireworksCanvas = document.getElementById('fireworksCanvas');
@@ -408,6 +416,176 @@
             }, 2000);
         });
 
+        // Music Player
+        const audio = document.getElementById('sadMusic');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+                document.querySelector('.music-player-btn').textContent = '🎵';
+                document.getElementById('soundWaveCanvas').style.display = 'none';
+            } else {
+                audio.play();
+                isPlaying = true;
+                document.querySelector('.music-player-btn').textContent = '⏸';
+                document.getElementById('soundWaveCanvas').style.display = 'block';
+            }
+        }
+
+        // Sound Wave Effect
+        const soundWaveCanvas = document.getElementById('soundWaveCanvas');
+        const sCtx = soundWaveCanvas.getContext('2d');
+        soundWaveCanvas.width = window.innerWidth;
+        soundWaveCanvas.height = window.innerHeight;
+
+        const waves = [];
+        class SoundWave {
+            constructor() {
+                this.radius = 0;
+                this.maxRadius = 100;
+                this.opacity = 1;
+                this.color = Math.random() > 0.5 ? '#00eaff' : '#00ff00';
+            }
+            update() {
+                this.radius += 2;
+                this.opacity -= 0.02;
+                if (this.opacity < 0) this.opacity = 0;
+            }
+            draw() {
+                sCtx.strokeStyle = this.color;
+                sCtx.globalAlpha = this.opacity;
+                sCtx.beginPath();
+                sCtx.arc(btnX + 30, btnY + 30, this.radius, 0, Math.PI * 2);
+                sCtx.stroke();
+            }
+        }
+
+        function animateSoundWaves() {
+            sCtx.clearRect(0, 0, soundWaveCanvas.width, soundWaveCanvas.height);
+            if (isPlaying && Math.random() < 0.2) {
+                waves.push(new SoundWave());
+            }
+            waves.forEach((wave, index) => {
+                wave.update();
+                wave.draw();
+                if (wave.opacity <= 0) {
+                    waves.splice(index, 1);
+                }
+            });
+            if (isPlaying) {
+                requestAnimationFrame(animateSoundWaves);
+            } else {
+                waves.length = 0;
+                sCtx.globalAlpha = 1;
+            }
+        }
+
+        audio.addEventListener('play', () => {
+            animateSoundWaves();
+        });
+
+        // Random Movement for Music Button
+        let btnX = window.innerWidth - 80;
+        let btnY = window.innerHeight - 80;
+        let speedX = (Math.random() * 4 - 2);
+        let speedY = (Math.random() * 4 - 2);
+
+        const musicBtn = document.getElementById('musicPlayerBtn');
+        function moveButton() {
+            const btnWidth = 60;
+            const btnHeight = 60;
+            const container = document.querySelector('.container');
+            const containerRect = container.getBoundingClientRect();
+
+            btnX += speedX;
+            btnY += speedY;
+
+            if (btnX < 0 || btnX > window.innerWidth - btnWidth) {
+                speedX *= -1;
+                btnX = Math.max(0, Math.min(btnX, window.innerWidth - btnWidth));
+            }
+            if (btnY < 0 || btnY > window.innerHeight - btnHeight) {
+                speedY *= -1;
+                btnY = Math.max(0, Math.min(btnY, window.innerHeight - btnHeight));
+            }
+
+            if (
+                btnX + btnWidth > containerRect.left &&
+                btnX < containerRect.right &&
+                btnY + btnHeight > containerRect.top &&
+                btnY < containerRect.bottom
+            ) {
+                speedX *= -1;
+                speedY *= -1;
+            }
+
+            musicBtn.style.left = `${btnX}px`;
+            musicBtn.style.top = `${btnY}px`;
+
+            if (Math.random() < 0.02) {
+                speedX = (Math.random() * 4 - 2);
+                speedY = (Math.random() * 4 - 2);
+            }
+
+            requestAnimationFrame(moveButton);
+        }
+
+        musicBtn.style.position = 'fixed';
+        musicBtn.style.left = `${btnX}px`;
+        musicBtn.style.top = `${btnY}px`;
+        moveButton();
+
+        // Secret Button Logic
+        const secretBtn = document.getElementById('secretBtn');
+        let clickCount = 0;
+        let lastClickTime = 0;
+
+        document.getElementById('destination').addEventListener('click', () => {
+            const currentTime = Date.now();
+            if (currentTime - lastClickTime < 2000) {
+                clickCount++;
+            } else {
+                clickCount = 1;
+            }
+            lastClickTime = currentTime;
+
+            if (clickCount >= 3) {
+                secretBtn.style.display = 'flex';
+                secretBtn.style.left = `${Math.random() * (window.innerWidth - 60)}px`;
+                secretBtn.style.top = `${Math.random() * (window.innerHeight - 60)}px`;
+                clickCount = 0;
+            }
+        });
+
+        secretBtn.addEventListener('click', () => {
+            document.getElementById('secretMessage').style.display = 'block';
+            for (let i = 0; i < 50; i++) {
+                fireworks.push(new Firework());
+            }
+            fireworksCanvas.style.display = 'block';
+            animateFireworks();
+            setTimeout(() => {
+                document.getElementById('secretMessage').style.display = 'none';
+                secretBtn.style.display = 'none';
+                fireworks.length = 0;
+            }, 2000);
+        });
+
+        // Digital Clock
+        const clock = document.getElementById('clock');
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            clock.textContent = `${hours}:${minutes}:${seconds}`;
+            requestAnimationFrame(updateClock);
+        }
+
+        updateClock();
+
         // Resize Handling
         window.addEventListener('resize', () => {
             particleCanvas.width = window.innerWidth;
@@ -416,6 +594,8 @@
             matrixCanvas.height = window.innerHeight;
             fireworksCanvas.width = window.innerWidth;
             fireworksCanvas.height = window.innerHeight;
+            soundWaveCanvas.width = window.innerWidth;
+            soundWaveCanvas.height = window.innerHeight;
             drops.length = Math.floor(matrixCanvas.width / fontSize);
             drops.fill(0);
             btnX = Math.min(btnX, window.innerWidth - 80);
