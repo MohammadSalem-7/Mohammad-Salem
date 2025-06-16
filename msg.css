@@ -50,12 +50,12 @@ textarea, select, input[type="text"] {
   transition: border 0.3s, box-shadow 0.3s;
 }
 select {
-  background: #1a1a2e; /* خلفية غامقة للقائمة المنسدلة */
-  color: #fff; /* نص فاتح */
+  background: #1a1a2e; 
+  color: #fff; 
 }
 select option {
-  background: #1a1a2e; /* خلفية غامقة للخيارات */
-  color: #fff; /* نص فاتح */
+  background: #1a1a2e; 
+  color: #fff; 
 }
 textarea:focus, select:focus, input[type="text"]:focus {
   outline: none;
@@ -102,15 +102,15 @@ button:disabled {
 }
 footer {
   position: fixed;
-  bottom: 0; /* لضمان ظهور الفوتر في أسفل الشاشة */
+  bottom: 0; 
   left: 0;
   width: 100%;
   text-align: center;
   font-size: 0.9rem;
-  color: #fff; /* تغيير اللون للأبيض عشان يكون واضح مع الخلفية */
+  color: #fff; 
   font-family: monospace;
-  z-index: 1000; /* زيادة z-index عشان يظهر فوق أي عناصر */
-  background: rgba(0, 0, 0, 0.5); /* خلفية شبه شفافة للوضوح */
-  padding: 8px 0; /* إضافة padding عشان الشكل */
-  backdrop-filter: blur(5px); /* تأثير زجاجي يتماشى مع التصميم */
+  z-index: 1000; 
+  background: rgba(0, 0, 0, 0.5); 
+  padding: 8px 0; 
+  backdrop-filter: blur(5px); 
 }
