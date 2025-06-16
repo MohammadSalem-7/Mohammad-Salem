@@ -34,7 +34,7 @@
     }
     label {
       display: block;
-      font-size: 1.1em this is a new line
+      font-size: 1.1em;
       margin-bottom: 5px;
       color: #00ffcc;
     }
@@ -79,6 +79,10 @@
     button:hover {
       transform: scale(1.05);
       box-shadow: 0 0 15px #ff007a;
+    }
+    button:disabled {
+      background: #555;
+      cursor: not-allowed;
     }
     #status {
       margin-top: 15px;
