@@ -1,0 +1,97 @@
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+    body {
+      background: url('https://a.top4top.io/p_3454ymqna1.png') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #fff;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #00ffcc;
+    }
+    .form-group {
+      margin-bottom: 20px;
+      text-align: right;
+    }
+    label {
+      display: block;
+      font-size: 1.1em this is a new line
+      margin-bottom: 5px;
+      color: #00ffcc;
+    }
+    textarea, select, input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #00ffcc;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      font-size: 1em;
+      transition: border 0.3s, box-shadow 0.3s;
+    }
+    select {
+      background: #1a1a2e; /* خلفية غامقة للقائمة المنسدلة */
+      color: #fff; /* نص فاتح */
+    }
+    select option {
+      background: #1a1a2e; /* خلفية غامقة للخيارات */
+      color: #fff; /* نص فاتح */
+    }
+    textarea:focus, select:focus, input[type="text"]:focus {
+      outline: none;
+      border: 1px solid #ff007a;
+      box-shadow: 0 0 10px #ff007a;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(90deg, #00ffcc, #ff007a);
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #ff007a;
+    }
+    #status {
+      margin-top: 15px;
+      font-size: 1em;
+      display: none;
+    }
+    .success { color: #00ffcc; }
+    .error { color: #ff007a; }
+    @media (max-width: 480px) {
+      .container {
+        padding: 20px;
+        margin: 10px;
+      }
+      h1 { font-size: 1.5em; }
+      button { font-size: 1em; }
+    }
