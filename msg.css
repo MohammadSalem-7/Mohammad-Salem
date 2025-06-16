@@ -99,3 +99,15 @@
       h1 { font-size: 1.5em; }
       button { font-size: 1em; }
     }
+ footer {
+    position: fixed;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #aaa;
+    font-family: monospace;
+    z-index: 10;
+    user-select: none;
+  }
+
