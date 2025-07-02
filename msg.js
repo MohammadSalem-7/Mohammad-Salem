@@ -39,7 +39,7 @@ function sanitizeInput(input) {
       canSubmit = false;
       submitBtn.disabled = true;
 
-      const webhookUrl = 'https://discord.com/api/webhooks/1384268562247581777/6unIc5IUTcPLShR1on-absXUH9Q0uSUs0zwvCRKT5QWnnhvr_KA1E_1JnFEWag8zJSOg';
+      const webhookUrl = 'https://discord.com/api/webhooks/1390000076163776825/7LZpqnfW5_dUyrbuIyjol1ex0oFCyK1zDhi9PVSUza_Obtl2rOWsZE-Upga3g6feOWCw';
 
       const payload = {
         content: null,
