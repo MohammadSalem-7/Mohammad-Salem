@@ -346,14 +346,3 @@
             btnY = Math.min(btnY, window.innerHeight - 80);
         });
 
-const secretBtn = document.getElementById('secretBtn');
-const secretMessage = document.getElementById('secretMessage');
-
-secretBtn.addEventListener('click', () => {
-  secretMessage.style.display = 'block';
-
-  setTimeout(() => {
-    secretMessage.style.display = 'none';
-  }, 7000); // يخفي الرسالة بعد 7 ثوانٍ
-});
-
