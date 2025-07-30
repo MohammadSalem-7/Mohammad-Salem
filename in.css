@@ -223,3 +223,47 @@
             .clock { font-size: 1rem; padding: 8px; }
             #secretMessage { font-size: 1.2rem; padding: 15px; }
         }
+#secretMessage {
+  position: fixed;
+  bottom: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  background: rgba(0, 0, 0, 0.75);
+  color: #00ffee;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 20px;
+  padding: 20px 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px #00ffee;
+  z-index: 9999;
+  display: none;
+  animation: fadeInUp 1s ease-out;
+  text-align: center;
+  white-space: nowrap;
+}
+
+#secretMessage a {
+  display: block;
+  margin-top: 10px;
+  color: #ff00aa;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+#secretMessage a:hover {
+  color: #ffd700;
+  text-shadow: 0 0 5px #fff;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 70%);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 50%);
+  }
+}
