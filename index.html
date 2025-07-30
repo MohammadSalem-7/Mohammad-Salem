@@ -1,38 +1,110 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mohammad Salem</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="in.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mohammad Salem</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="in.css">
+
+  <style>
+#secretMessage {
+  position: fixed;
+  bottom: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  background: rgba(0, 0, 0, 0.75);
+  color: #00ffee;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 20px;
+  padding: 20px 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px #00ffee;
+  z-index: 9999;
+  display: none;
+  animation: fadeInUp 1s ease-out;
+  text-align: center;
+  white-space: nowrap;
+}
+
+#secretMessage a {
+  display: block;
+  margin-top: 10px;
+  color: #ff00aa;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+#secretMessage a:hover {
+  color: #ffd700;
+  text-shadow: 0 0 5px #fff;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 70%);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 50%);
+  }
+}
+
+  </style>
 </head>
 <body>
-    <canvas id="particleCanvas"></canvas>
-    <canvas id="matrixCanvas"></canvas>
-    <canvas id="fireworksCanvas"></canvas>
-    <canvas id="soundWaveCanvas"></canvas>
-    <div id="secretMessage"><a href="https://wa.me/201558025875" target="_blank">  حلو فراغك تستاهل تكلمني واتس دوس ياغالي هنا:)</a></div>
-    <div class="container">
-        <h1 id="nameTrigger">Mohammad Salem</h1>
-        <p id="destination">اختر وجهتك</p>
-        <div class="buttons">
-            <a href="music.html" class="btn music-btn">الأغاني</a>
-            <a href="video.html" class="btn video-btn">الفيديوهات</a>
-            <a href="msg.html" class="btn msg-btn">رساله ليا</a>
-            <a href="love.html" class="btn love-btn">love</a>
-            <a href="haha.html" class="btn haha-btn">M</a>
-            <a href="Work.html" class="btn work-btn">Web</a>
-            <a href="me.html" class="btn video-btn">ME</a>
-        </div>
+  <canvas id="particleCanvas"></canvas>
+  <canvas id="matrixCanvas"></canvas>
+  <canvas id="fireworksCanvas"></canvas>
+  <canvas id="soundWaveCanvas"></canvas>
+
+  <!-- الرسالة السرية -->
+  <div id="secretMessage">
+    <a href="https://wa.me/201558025875" target="_blank">
+      حلو فراغك تستاهل تكلمني واتس دوس ياغالي هنا :)
+    </a>
+  </div>
+
+  <div class="container">
+    <h1 id="nameTrigger">Mohammad Salem</h1>
+    <p id="destination">اختر وجهتك</p>
+    <div class="buttons">
+      <a href="music.html" class="btn music-btn">الأغاني</a>
+      <a href="video.html" class="btn video-btn">الفيديوهات</a>
+      <a href="msg.html" class="btn msg-btn">رساله ليا</a>
+      <a href="love.html" class="btn love-btn">love</a>
+      <a href="haha.html" class="btn haha-btn">M</a>
+      <a href="Work.html" class="btn work-btn">Web</a>
+      <a href="me.html" class="btn video-btn">ME</a>
     </div>
-    <button class="music-player-btn" id="musicPlayerBtn" onclick="toggleMusic()">🎵</button>
-    <button class="secret-btn" id="secretBtn">💎</button>
-    <div class="clock" id="clock"></div>
-    <audio id="sadMusic" src="https://j.top4top.io/m_3420ihcfo1.mp3" loop></audio>
-    <audio id="fireworksSound" src="https://e.top4top.io/m_34208xqis1.mp3"></audio>
- 
-<script src="in.js" async defer></script>
+  </div>
+
+  <button class="music-player-btn" id="musicPlayerBtn" onclick="toggleMusic()">🎵</button>
+  <button class="secret-btn" id="secretBtn">💎</button>
+  <div class="clock" id="clock"></div>
+
+  <audio id="sadMusic" src="https://j.top4top.io/m_3420ihcfo1.mp3" loop></audio>
+  <audio id="fireworksSound" src="https://e.top4top.io/m_34208xqis1.mp3"></audio>
+
+  <!-- سكريبت الرسالة السرية -->
+  <script>
+const secretBtn = document.getElementById('secretBtn');
+const secretMessage = document.getElementById('secretMessage');
+
+secretBtn.addEventListener('click', () => {
+  secretMessage.style.display = 'block';
+
+  setTimeout(() => {
+    secretMessage.style.display = 'none';
+  }, 7000); // يخفي الرسالة بعد 7 ثوانٍ
+});
+
+  </script>
+
+  <script src="in.js" async defer></script>
 </body>
 </html>
