@@ -2,232 +2,130 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Medo Music</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>M E D O Mu</title>
   <style>
     body {
-      background: url('https://assets.onecompiler.app/42ydxf8da/43duzpqxh/ChatGPT%20Image%204%20%D8%A3%D8%A8%D8%B1%D9%8A%D9%84%202025,%2011_20_57%20%D9%85.png') no-repeat center center fixed;
-      background-size: cover;
-      color: #f2f2f2;
-      font-family: Arial, sans-serif;
-      text-align: center;
       margin: 0;
       padding: 0;
+      font-family: 'Cairo', sans-serif;
+      background: #0e1e33 url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
     }
 
     .container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-      backdrop-filter: blur(5px);
+      background: rgba(0, 0, 0, 0.6);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px #00f2ff;
+      text-align: center;
+      width: 90%;
+      max-width: 500px;
     }
 
     h1 {
-      font-size: 3rem;
-      text-transform: uppercase;
-      text-shadow: 0 0 15px #cba5ff;
-      color: #fff;
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #00f2ff;
     }
 
-    .player {
-      background: rgba(255, 255, 255, 0.08);
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 0 15px #d17cff;
-      width: 90%;
-      max-width: 550px;
-    }
-
-    .song {
-      margin-bottom: 35px;
-    }
-
-    .song-name {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-bottom: 10px;
-      color: #fdfdfd;
-      text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+    audio {
+      width: 100%;
+      margin: 20px 0;
     }
 
     .controls {
       display: flex;
-      align-items: center;
-      gap: 10px;
-      justify-content: center;
-      margin-top: 5px;
+      justify-content: space-between;
+      margin-top: 20px;
     }
 
     button {
-      background: #d17cff;
+      background: #00f2ff;
       border: none;
-      color: white;
-      font-size: 1.2rem;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      box-shadow: 0 0 10px #d17cff;
-    }
-
-    input[type="range"] {
-      flex-grow: 1;
-      height: 6px;
+      padding: 10px 20px;
+      color: black;
       border-radius: 10px;
-      background: #cba5ff;
       cursor: pointer;
-      appearance: none;
+      font-size: 16px;
+      transition: background 0.3s ease;
     }
 
-    input[type="range"]::-webkit-slider-thumb {
-      appearance: none;
-      width: 12px;
-      height: 12px;
-      background: #fff;
-      border-radius: 50%;
-      box-shadow: 0 0 5px #fff;
+    button:hover {
+      background: #00c2cc;
     }
 
-    .time {
-      font-size: 0.8rem;
-    }
-
-    .neon-effect {
-      animation: glow 2s infinite alternate;
-    }
-
-    @keyframes glow {
-      from {
-        text-shadow: 0 0 8px #d17cff, 0 0 16px #cba5ff;
-      }
-      to {
-        text-shadow: 0 0 16px #cba5ff, 0 0 24px #d17cff;
-      }
+    .loader {
+      display: none;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #aaa;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1 class="neon-effect">Mohammad Salem Music</h1>
-    <div class="player">
-      
-      <!-- أغنية 1 -->
-      <div class="song">
-        <p class="song-name">أغنية 1 - بتمناه انساك</p>
-        <audio src="https://e.top4top.io/m_3351gkmvu1.mp3"></audio>
-        <div class="controls">
-          <button class="playPause">▶️</button>
-          <span class="time current">0:00</span>
-          <input type="range" class="progressBar" value="0">
-          <span class="time duration">0:00</span>
-        </div>
-      </div>
-
-      <!-- أغنية 2 -->
-      <div class="song">
-        <p class="song-name">أغنية 2 - قلو لها</p>
-        <audio src="https://l.top4top.io/m_3351ckrxi1.mp3"></audio>
-        <div class="controls">
-          <button class="playPause">▶️</button>
-          <span class="time current">0:00</span>
-          <input type="range" class="progressBar" value="0">
-          <span class="time duration">0:00</span>
-        </div>
-      </div>
-
-      <!-- أغنية 3 -->
-      <div class="song">
-        <p class="song-name">أغنية 3 - Love Story</p>
-        <audio src="https://b.top4top.io/m_3352djwq21.mp3"></audio>
-        <div class="controls">
-          <button class="playPause">▶️</button>
-          <span class="time current">0:00</span>
-          <input type="range" class="progressBar" value="0">
-          <span class="time duration">0:00</span>
-        </div>
-      </div>
-
-      <!-- أغنية 4 -->
-      <div class="song">
-        <p class="song-name">أغنية 4 - امشي</p>
-        <audio src="https://e.top4top.io/m_3368ag2rk1.mp3"></audio>
-        <div class="controls">
-          <button class="playPause">▶️</button>
-          <span class="time current">0:00</span>
-          <input type="range" class="progressBar" value="0">
-          <span class="time duration">0:00</span>
-        </div>
-      </div>
-
-      <!-- أغنية 5 -->
-      <div class="song">
-        <p class="song-name">أغنية 5 - تامر عشور - موضوع</p>
-        <audio src="https://k.top4top.io/m_3381pmiu11.mp3"></audio>
-        <div class="controls">
-          <button class="playPause">▶️</button>
-          <span class="time current">0:00</span>
-          <input type="range" class="progressBar" value="0">
-          <span class="time duration">0:00</span>
-        </div>
-      </div>
-
+    <h1 id="song-title">جارٍ التحميل...</h1>
+    <audio id="audio" controls preload="none">
+      <source id="audio-source" src="">
+      متصفحك لا يدعم تشغيل الصوت.
+    </audio>
+    <div class="controls">
+      <button onclick="prevSong()">السابق</button>
+      <button onclick="nextSong()">التالي</button>
     </div>
+    <div class="loader" id="loader">جاري تحميل الأغنية...</div>
   </div>
 
   <script>
-    // دالة لتحويل الثواني إلى صيغة دقيقة:ثانية
-    function formatTime(seconds) {
-      const mins = Math.floor(seconds / 60);
-      const secs = Math.floor(seconds % 60);
-      return `${mins}:${secs < 10 ? '0' + secs : secs}`;
+    const songs = [
+      { title: "أغنية 1 - بتمناه انساك", src: "https://e.top4top.io/m_3351gkmvu1.mp3" },
+      { title: "أغنية 2 - قلو لها", src: "https://l.top4top.io/m_3351ckrxi1.mp3" },
+      { title: "أغنية 3 - Love Story", src: "https://b.top4top.io/m_3352djwq21.mp3" },
+      { title: "أغنية 4 - امشي", src: "https://e.top4top.io/m_3368ag2rk1.mp3" },
+      { title: "أغنية 5 - تامر عشور - موضوع", src: "https://k.top4top.io/m_3381pmiu11.mp3" }
+    ];
+
+    let current = 0;
+    const audio = document.getElementById("audio");
+    const source = document.getElementById("audio-source");
+    const title = document.getElementById("song-title");
+    const loader = document.getElementById("loader");
+
+    function loadSong(index) {
+      loader.style.display = "block";
+      audio.pause();
+      audio.currentTime = 0;
+
+      setTimeout(() => {
+        title.textContent = songs[index].title;
+        source.src = songs[index].src;
+        audio.load();
+        loader.style.display = "none";
+      }, 500); // تأثير تحميل خفيف
     }
 
-    const players = document.querySelectorAll('.song');
+    function nextSong() {
+      current = (current + 1) % songs.length;
+      loadSong(current);
+    }
 
-    players.forEach(song => {
-      const audio = song.querySelector('audio');
-      const playBtn = song.querySelector('.playPause');
-      const progress = song.querySelector('.progressBar');
-      const current = song.querySelector('.current');
-      const duration = song.querySelector('.duration');
+    function prevSong() {
+      current = (current - 1 + songs.length) % songs.length;
+      loadSong(current);
+    }
 
-      audio.addEventListener('loadedmetadata', () => {
-        progress.max = audio.duration;
-        duration.textContent = formatTime(audio.duration);
-      });
-
-      audio.addEventListener('timeupdate', () => {
-        progress.value = audio.currentTime;
-        current.textContent = formatTime(audio.currentTime);
-      });
-
-      playBtn.addEventListener('click', () => {
-        // إيقاف أي صوت آخر
-        players.forEach(other => {
-          const otherAudio = other.querySelector('audio');
-          const otherBtn = other.querySelector('.playPause');
-          if (other !== song) {
-            otherAudio.pause();
-            otherBtn.textContent = '▶️';
-          }
-        });
-
-        if (audio.paused) {
-          audio.play();
-          playBtn.textContent = '⏸️';
-        } else {
-          audio.pause();
-          playBtn.textContent = '▶️';
-        }
-      });
-
-      progress.addEventListener('input', () => {
-        audio.currentTime = progress.value;
-      });
-    });
+    // تحميل أول أغنية
+    window.onload = () => {
+      loadSong(current);
+    };
   </script>
 </body>
 </html>
