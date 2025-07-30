@@ -1,0 +1,284 @@
+<!--يامسهل الحال يارب-->
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+   <meta charset="UTF-8">
+   <title>M E D O</title>
+   <meta name="viewport" content="width=device-width,initial-scale=1.0">
+   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Changa:wght@400;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Changa', sans-serif;
+    }
+
+    body {
+      margin: 0;
+	  background: url('https://a.top4top.io/p_349859njz1.png') no-repeat center center /cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px 25px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      width: 90%;
+      max-width: 400px;
+      position: relative;
+      animation: fadeIn 0.8s ease;
+      display: none;
+    }
+
+    .container.active {
+      display: block;
+    }
+
+    .title-box {
+      background: #000000aa;
+      padding: 8px;
+      border-radius: 12px;
+      text-align: center;
+      color: #f1c40f;
+      margin-bottom: 15px;
+      font-weight: bold;
+      font-size: 20px;
+      box-shadow: 0 0 10px #f1c40f;
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #fff;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #fff;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      outline: none;
+    }
+
+    input:focus {
+      background: rgba(255, 255, 255, 0.3);
+      border: 1px solid gold;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #f1c40f;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #e1b307;
+      transform: scale(1.02);
+    }
+
+    .link {
+      color: #fff;
+      text-decoration: underline;
+      cursor: pointer;
+      display: block;
+      margin-top: 8px;
+      text-align: center;
+    }
+
+    .message {
+      text-align: center;
+      margin-bottom: 10px;
+      font-weight: bold;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .error {
+      background-color: #e74c3c;
+      color: white;
+    }
+
+    .success {
+      background-color: #2ecc71;
+      color: white;
+    }
+
+    .footer {
+      margin-top: auto;
+      padding: 10px;
+      width: 100%;
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.2);
+      color: white;
+      font-size: 14px;
+      position: absolute;
+      bottom: 0;
+    }
+
+    .footer a {
+      color: gold;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+   </style>
+</head>
+<body>
+<!-- تسجيل الدخول -->
+  <div class="container active" id="loginBox">
+    <div class="title-box">Mohammad Salem</div>
+    <h2>تسجيل الدخول</h2>
+    <div class="message" id="loginMessage"></div>
+    <label>اسم المستخدم</label>
+    <input type="text" id="loginUser" placeholder="ادخل اسم المستخدم">
+    <label>كلمة السر</label>
+    <input type="password" id="loginPass" placeholder="ادخل كلمة السر">
+    <button onclick="validateLogin()">دخول</button>
+    <span class="link" onclick="showBox('registerBox')">معنديش حساب؟</span>
+	<br>
+    <span class="link" onclick="showBox('forgotBox')">نسيت كلمة السر؟</span>
+  </div>
+
+  <!-- تسجيل جديد اول مره-->
+  <div class="container" id="registerBox">
+    <div class="title-box">Mohammad Salem</div>
+    <h2>تسجيل لأول مرة</h2>
+    <div class="message" id="registerMessage"></div>
+    <label>الاسم</label>
+    <input type="text" id="regName" placeholder="ادخل اسمك">
+    <label>البريد الإلكتروني</label>
+    <input type="email" id="regEmail" placeholder="ادخل البريد الإلكتروني">
+    <label>كلمة السر</label>
+    <input type="password" id="regPass" placeholder="كلمة السر">
+    <label>تأكيد كلمة السر</label>
+    <input type="password" id="regConfirm" placeholder="اعد كتابة كلمة السر">
+    <button onclick="validateRegister()">تسجيل</button>
+    <span class="link" onclick="showBox('loginBox')">عندي حساب بالفعل</span>
+  </div>
+
+  <!-- نسيت كلمة السر -->
+  <div class="container" id="forgotBox">
+    <div class="title-box">Mohammad Salem</div>
+    <h2>نسيت كلمة السر؟</h2>
+    <div class="message" id="forgotMessage"></div>
+    <label>ادخل بريدك الإلكتروني</label>
+    <input type="email" id="forgotEmail" placeholder="example@email.com">
+    <button onclick="validateForgot()">إرسال رابط الاسترجاع</button>
+    <span class="link" onclick="showBox('loginBox')">رجوع</span>
+  </div>
+
+  <!-- الفوتر -->
+  <div class="footer">
+    جميع الحقوق محفوظة © 2025 |  <a href="https://www.facebook.com/mohamed.salemahmed.10236?mibextid=ZbWKwL" target="_blank"><i><b>Mohammad Salem</b></i></a>
+  </div>
+ <!----------------JS--------------------->
+   <script>
+   function showBox(boxId) {
+      document.querySelectorAll('.container').forEach(box => {
+        box.classList.remove('active');
+      });
+      document.getElementById(boxId).classList.add('active');
+      clearMessages();
+    }
+
+    function clearMessages() {
+      document.getElementById('loginMessage').innerHTML = '';
+      document.getElementById('registerMessage').innerHTML = '';
+      document.getElementById('forgotMessage').innerHTML = '';
+    }
+
+    function validateEmail(email) {
+      const pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+      return pattern.test(email);
+    }
+
+    function validateLogin() {
+      const user = document.getElementById('loginUser').value.trim();
+      const pass = document.getElementById('loginPass').value.trim();
+      const msg = document.getElementById('loginMessage');
+      if (user === '' || pass === '') {
+        msg.className = 'message error';
+        msg.innerText = 'يرجى ملء جميع الخانات.';
+      } else {
+        msg.className = 'message success';
+        msg.innerText = 'تم تسجيل الدخول بنجاح 🎉';
+      }
+    }
+
+    function validateRegister() {
+      const name = document.getElementById('regName').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const pass = document.getElementById('regPass').value.trim();
+      const confirm = document.getElementById('regConfirm').value.trim();
+      const msg = document.getElementById('registerMessage');
+
+      if (!name || !email || !pass || !confirm) {
+        msg.className = 'message error';
+        msg.innerText = 'يرجى ملء جميع الخانات.';
+        return;
+      }
+
+      if (!validateEmail(email)) {
+        msg.className = 'message error';
+        msg.innerText = 'يرجى إدخال بريد إلكتروني صحيح.';
+        return;
+      }
+
+      if (pass !== confirm) {
+        msg.className = 'message error';
+        msg.innerText = 'كلمتا السر غير متطابقتين.';
+        return;
+      }
+
+      msg.className = 'message success';
+      msg.innerText = 'تم التسجيل بنجاح 🎊';
+    }
+
+    function validateForgot() {
+      const email = document.getElementById('forgotEmail').value.trim();
+      const msg = document.getElementById('forgotMessage');
+      if (email === '') {
+        msg.className = 'message error';
+        msg.innerText = 'يرجى إدخال بريدك الإلكتروني.';
+      } else if (!validateEmail(email)) {
+        msg.className = 'message error';
+        msg.innerText = 'صيغة البريد غير صحيحة.';
+      } else {
+        msg.className = 'message success';
+        msg.innerText = 'تم إرسال رابط الاسترجاع إلى بريدك 📩';
+      }
+    }
+   </script>
+</body>
+</html>
