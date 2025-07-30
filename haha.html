@@ -1,21 +1,149 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <title>بطاقة في المنتصف</title>
-    <link rel="stylesheet" href="m4.css" />
+  <meta charset="UTF-8">
+  <title>بطاقة توليد كلمات مرور</title>
+  <style>
+    /* خلفية الصفحة */
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: url('https://g.top4top.io/p_3498rkxlr1.jpg') no-repeat center center / cover;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* البطاقة */
+    .card {
+      width: 300px;
+      height: 400px;
+      perspective: 1000px;
+    }
+
+    .card-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transition: transform 1s;
+      transform-style: preserve-3d;
+    }
+
+    .card:hover .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-front,
+    .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      backface-visibility: hidden;
+    }
+
+    .card-front {
+      background: #000;
+    }
+
+    .card-front img,
+    .card-back img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-back {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+
+    /* صندوق التوليد */
+    .box {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 123, 255, 0.3);
+      width: 240px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    input::placeholder {
+      color: #ddd;
+    }
+
+    button {
+      margin-top: 14px;
+      padding: 10px 12px;
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 15px;
+      width: 100%;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(90deg, #0072ff, #00c6ff);
+    }
+
+    footer {
+      margin-top: 12px;
+      font-size: 0.8rem;
+      color: #ffffffcc;
+      font-family: monospace;
+      user-select: none;
+    }
+  </style>
 </head>
 <body>
-    <div class="card">
-        <div class="card-inner">
-           <div class="card-front">
-            <img src="https://g.top4top.io/p_3386ikb420.jpg " alt="الواجهة الأمامية" style="width: 100%; height: 100%;">
-            </div>
-            <div class="card-back">
-             <img src="https://j.top4top.io/p_33866qd680.jpg " alt="الواجهة الخلفية" style="width: 100%; height: 100%;">
-             </div>
-            </div>
+  <div class="card">
+    <div class="card-inner">
+      <div class="card-front">
+        <img src="https://g.top4top.io/p_3386ikb420.jpg" alt="الواجهة الأمامية">
+      </div>
+      <div class="card-back">
+        <div class="box">
+          <input type="text" id="pw" placeholder="Password" readonly />
+          <button onclick="gen()">Generate</button>
         </div>
+        <footer>Dev Mohammad Salem</footer>
+      </div>
     </div>
+  </div>
+
+  <script>
+    function gen() {
+      const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789~`!@#$%^&*()_+=-][{}/?.>,<';
+      let pw = "";
+      for (let i = 0; i < 10; i++) {
+        pw += chars[Math.floor(Math.random() * chars.length)];
+      }
+      document.getElementById('pw').value = pw;
+    }
+  </script>
 </body>
 </html>
