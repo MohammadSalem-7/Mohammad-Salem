@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>المطور - Mohammad Salem</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!------------------------CSS----------------------------------->
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: linear-gradient(to bottom, #0f172a, #000);
+      color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 10px;
+    }
+    .profile {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      background: rgba(255,255,255,0.05);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0,255,213,0.25);
+      backdrop-filter: blur(12px);
+      animation: fadeIn 1.2s ease;
+      width: 850px;
+      max-width: 100%;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .profile img.main-photo {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid #00ffd5;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .info {
+      flex: 1;
+      min-width: 250px;
+    }
+    .info h2 {
+      font-size: 2em;
+      margin: 0;
+      font-weight: bold;
+      line-height: 1.2em;
+    }
+    .info h2 span:first-child { color: #00ffd5; }
+    .info h2 span:last-child { color: #7c3aed; transition: color 0.6s; }
+    .info p {
+      font-size: 15px;
+      color: #ccc;
+      margin: 10px 0 20px;
+      max-width: 100%;
+      height: 65px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      opacity: 1;
+      transition: opacity 0.8s ease;
+    }
+    .info p.fade-out { opacity: 0; }
+
+    .socials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .socials a {
+      color: #eee;
+      font-size: 22px;
+      transition: 0.3s;
+    }
+    .socials a:hover { color: #00ffd5; transform: scale(1.2); }
+
+    .kali-logo {
+      width: 100px;
+      height: 100px;
+      filter: drop-shadow(0 0 12px #00ffd5);
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+    .kali-logo:hover {
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 20px #00ffd5);
+    }
+
+    .extra-info {
+      margin-top: 15px;
+    }
+    .extra-info button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      background: #00ffd5;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .extra-info button:hover { background: #7c3aed; color: #fff; }
+    .hidden {
+      display: none;
+      margin-top: 10px;
+      color: #ccc;
+      font-size: 14px;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 700px) {
+      .profile {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding: 30px 20px;
+      }
+      .info h2 { font-size: 1.8em; text-align: center; }
+      .info p { text-align: center; }
+      .socials { justify-content: center; }
+      .kali-logo { width: 80px; height: 80px; }
+    }
+  </style>
+    <!------------------------HTML----------------------------------->
+</head>
+<body>
+  <div class="profile">
+    <img src="https://c.top4top.io/p_351785os11.jpg" alt="Mohammad Salem" class="main-photo">
+
+    <div class="info">
+      <h2><span>Mohammad</span> <span id="lastname">Salem</span></h2>
+      <p id="bio">مطور ويب شغوف بابتكار تجارب رقمية مستقبلية تجمع بين التصميم العصري والبرمجة الذكية.</p>
+
+      <div class="socials">
+        <a href="https://github.com/mohammadsalem-7?fbclid=IwY2xjawMQUAxleHRuA2FlbQIxMABicmlkETFlTTZGUmxWOHFteFplSkxmAR7mDx-qmD-yd9AE-7XZxrYYOprchjYi26N0AjsuxjGMEMa9WvC_nQHhGKJpVQ_aem_Rv6KBEYi3pNZwMqFJBvGOQ" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://x.com/MOHAMMED_1SALEM" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.facebook.com/mohamed.salemahmed.10236?mibextid=ZbWKwL" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://wa.me/201558025875" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://discord.com/users/1275148740092760170" target="_blank"><i class="fab fa-discord"></i></a>
+      </div>
+
+      <div class="extra-info">
+        <button onclick="toggleInfo()">معلومات إضافية</button>
+        <div id="more-info" class="hidden">
+          <p>العمر: 18</p>
+          <p>البلد: مصر</p>
+        </div>
+      </div>
+      <div class="extra-info">
+        <button onclick="enter"> <a href="https://mohammadsalem-7.github.io/Mohammad-Salem/">Enter</a></button>
+      </div>
+    </div>
+
+    <img src="https://d.top4top.io/p_3517hgsgn2.png"
+         alt="Kali Linux Logo" class="kali-logo">
+  </div>
+  <!------------------------JS----------------------------------->
+  <script>
+    const lastName = document.getElementById('lastname');
+    let colors = ['#7c3aed', '#00ffd5', '#ff0080'];
+    let i = 0;
+    setInterval(() => { lastName.style.color = colors[i % colors.length]; i++; }, 1500);
+
+    const bio = document.getElementById('bio');
+    const messages = [
+  "مطور ويب ومختبر اختراق شغوف بابتكار تجارب رقمية آمنة.",
+  "مهتم بالأمن السيبراني وحماية الأنظمة والتطبيقات.",
+  "خبير في الواجهات الأمامية والتجارب التفاعلية مع تركيز على الأمان.",
+  "أقوم بتحليل الثغرات واختبار الاختراق لتعزيز سلامة الشبكات.",
+  "أحب تحويل الأفكار إلى تصميمات أنيقة وواقعية مع مراعاة الأمان.",
+  "أسعى دائمًا لتطوير مهاراتي في الأمن السيبراني وتقنيات الحماية.",
+  "أشارك معرفتي وأحدث طرق الحماية مع المجتمع التقني."
+    ];
+
+    let j = 0;
+    setInterval(() => {
+      bio.classList.add('fade-out');
+      setTimeout(() => { bio.textContent = messages[j % messages.length]; bio.classList.remove('fade-out'); j++; }, 800);
+    }, 4000);
+
+    function toggleInfo() {
+      document.getElementById('more-info').classList.toggle('hidden');
+    }
+  </script>
+</body>
+</html>
